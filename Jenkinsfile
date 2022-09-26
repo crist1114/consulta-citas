@@ -1,3 +1,4 @@
+@Library('ceiba-jenkins-library')
 pipeline {
   //Donde se va a ejecutar el Pipeline
   agent {
@@ -39,6 +40,9 @@ pipeline {
     stage('Static Code Analysis') {
       steps{
         echo '------------>Análisis de código estático<------------'
+        sonarqubeMasQualityGatesP(sonarKey:'co.com.ceiba.adn:adn-controldecitasback-cristian.medina',
+        sonarName:'ADN-ControlDeCitasBack(cristian.medina)',
+        sonarPathProperties:'./sonar-project.properties')
 
       }
     }
@@ -46,7 +50,7 @@ pipeline {
     stage('Build') {
       steps {
         echo "------------>Build<------------"
-
+        sh './gradlew --b ./build.gradle build -x test'
       }
     }  
   }
