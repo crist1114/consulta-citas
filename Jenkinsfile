@@ -1,4 +1,4 @@
-@Library('ceiba-jenkins-library')
+@Library('ceiba-jenkins-library') _
 pipeline {
   //Donde se va a ejecutar el Pipeline
   agent {
@@ -50,7 +50,6 @@ pipeline {
     stage('Build') {
       steps {
         echo "------------>Build<------------"
-        sh './gradlew --b ./build.gradle build -x test'
       }
     }  
   }
@@ -63,7 +62,7 @@ pipeline {
       echo 'This will run only if successful'
     }
     failure {
-      cristian.medina@ceiba.com.co
+      echo 'This will run only if failed'
     }
     unstable {
       echo 'This will run only if the run was marked as unstable'
