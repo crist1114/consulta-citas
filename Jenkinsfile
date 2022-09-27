@@ -13,7 +13,7 @@ pipeline {
 
   //Una sección que define las herramientas “preinstaladas” en Jenkins
   tools {
-    jdk 'JDK18' //Versión preinstalada en la Configuración del Master - Modificar según versión de JDK utilizada
+    jdk 'JDK8_Centos' //Versión preinstalada en la Configuración del Master - Modificar según versión de JDK utilizada
 
   }
 
