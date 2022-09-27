@@ -29,9 +29,9 @@ pipeline {
     stage('Compile & Unit Tests') {
       steps{
         echo "------------>Compile & Unit Tests<------------"
-        sh 'chmod +x ./microservicio/gradlew'
-        sh './microservicio/gradlew --b ./microservicio/build.gradle clean'
-        sh './microservicio/gradlew --b ./microservicio/build.gradle test'
+        sh 'chmod +x ./java-arquitectura-hexagonal/microservicio/gradlew'
+        sh './java-arquitectura-hexagonal/microservicio/gradlew --b ./java-arquitectura-hexagonal/microservicio/build.gradle clean'
+        sh './java-arquitectura-hexagonal/microservicio/gradlew --b ./java-arquitectura-hexagonal/microservicio/build.gradle test'
         junit 'build/test-results/test/*.xml'
 
       }
