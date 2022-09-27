@@ -14,7 +14,7 @@ pipeline {
   //Una sección que define las herramientas “preinstaladas” en Jenkins
   tools {
     jdk 'JDK18_Centos' //Versión preinstalada en la Configuración del Master - Modificar según versión de JDK utilizada
-    nodejs 'NodeJS15'
+
   }
 
   //Aquí comienzan los “ítems” del Pipeline
@@ -40,8 +40,8 @@ pipeline {
     stage('Static Code Analysis') {
       steps{
         echo '------------>Análisis de código estático<------------'
-        sonarqubeMasQualityGatesP(sonarKey:'co.com.ceiba.adn:adn-controldecitasback-cristian.medina',
-        sonarName:'ADN-ControlDeCitasBack(cristian.medina)',
+        sonarqubeMasQualityGatesP(sonarKey:'co.com.ceiba.adn:adn-citas-cristian.medina',
+        sonarName:'ADN-citas(cristian.medina)',
         sonarPathProperties:'./sonar-project.properties')
 
       }
@@ -63,7 +63,7 @@ pipeline {
       echo 'This will run only if successful'
     }
     failure {
-      echo 'This will run only if failed'
+      cristian.medina@ceiba.com.co
     }
     unstable {
       echo 'This will run only if the run was marked as unstable'
