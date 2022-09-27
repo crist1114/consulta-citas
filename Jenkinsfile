@@ -41,8 +41,8 @@ pipeline {
       steps{
         echo '------------>Análisis de código estático<------------'
         sonarqubeMasQualityGatesP(sonarKey:'co.com.ceiba.adn:adn-citas-cristian.medina',
-        sonarName:'ADN-citas(cristian.medina)',
-        sonarPathProperties:'./sonar-project.properties'
+        sonarName:'ADN-citas-cristian.medina',
+        sonarPathProperties:'./sonar-project.properties')
 
       }
     }
