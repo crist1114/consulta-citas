@@ -29,10 +29,10 @@ pipeline {
     stage('Compile & Unit Tests') {
       steps{
         echo "------------>Compile & Unit Tests<------------"
-        sh 'chmod +x ./java-arquitectura-hexagonal/microservicio/gradlew'
-        sh './java-arquitectura-hexagonal/microservicio/gradlew --b ./java-arquitectura-hexagonal/microservicio/build.gradle clean'
-        sh './java-arquitectura-hexagonal/microservicio/gradlew --b ./java-arquitectura-hexagonal/microservicio/build.gradle test'
-        junit 'build/test-results/test/*.xml'
+        sh 'chmod +x ./microservicio/gradlew'
+        //sh './microservicio/gradlew --b ./microservicio/build.gradle clean'
+        sh './microservicio/gradlew --b ./microservicio/build.gradle test'
+
 
       }
     }
@@ -60,6 +60,7 @@ pipeline {
     }
     success {
       echo 'This will run only if successful'
+      junit 'build/test-results/test/*.xml'
     }
     failure {
       echo 'This will run only if failed'
