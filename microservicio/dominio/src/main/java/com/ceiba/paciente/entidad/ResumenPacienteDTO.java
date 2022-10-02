@@ -1,19 +1,13 @@
-package com.ceiba.factura.comando;
+package com.ceiba.paciente.entidad;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
 @AllArgsConstructor
-@NoArgsConstructor
-public class ComandoSolicitudRegistrar {
+public class ResumenPacienteDTO {
 
     private Long id;
     private String nombre;
     private String tipoPaciente;
-
-
 }

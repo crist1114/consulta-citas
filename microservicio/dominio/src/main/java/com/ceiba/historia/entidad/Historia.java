@@ -2,10 +2,8 @@ package com.ceiba.historia.entidad;
 
 import com.ceiba.dominio.ValidadorArgumento;
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
-import com.ceiba.paciente.entidad.Paciente;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Historia {
 

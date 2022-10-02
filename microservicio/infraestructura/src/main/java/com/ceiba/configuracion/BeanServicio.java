@@ -3,7 +3,7 @@ package com.ceiba.configuracion;
 import com.ceiba.cita.puerto.repositorio.RepositorioCita;
 import com.ceiba.cita.servicio.ServicioAgendar;
 import com.ceiba.historia.puerto.RepositorioHistoria;
-import com.ceiba.paciente.puerto.RepositorioPaciente;
+import com.ceiba.paciente.puerto.repositorio.RepositorioPaciente;
 import com.ceiba.paciente.servicio.ServicioRegistrar;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,8 +13,8 @@ public class BeanServicio {
 
 
     @Bean
-    public ServicioAgendar servicioAgendar(RepositorioCita repositorioCita, RepositorioHistoria repositorioHistoria, RepositorioPaciente repositorioPaciente){
-        return new ServicioAgendar(repositorioCita, repositorioHistoria, repositorioPaciente);
+    public ServicioAgendar servicioAgendar(RepositorioCita repositorioCita, RepositorioHistoria repositorioHistoria){
+        return new ServicioAgendar(repositorioCita, repositorioHistoria);
     }
 
     @Bean

@@ -1,13 +1,9 @@
 package com.ceiba.paciente.servicio;
 
-import com.ceiba.cita.modelo.entidad.Cita;
-import com.ceiba.cita.modelo.entidad.SolicitudAgendar;
-import com.ceiba.dominio.ValidadorArgumento;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
-import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.paciente.entidad.Paciente;
 import com.ceiba.paciente.entidad.SolicitudRegistrar;
-import com.ceiba.paciente.puerto.RepositorioPaciente;
+import com.ceiba.paciente.puerto.repositorio.RepositorioPaciente;
 
 public class ServicioRegistrar {
 

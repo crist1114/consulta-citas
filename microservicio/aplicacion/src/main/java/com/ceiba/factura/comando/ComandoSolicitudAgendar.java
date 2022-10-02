@@ -1,6 +1,5 @@
 package com.ceiba.factura.comando;
 
-import com.ceiba.cita.modelo.entidad.TipoProcedimiento;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

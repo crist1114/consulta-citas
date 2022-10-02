@@ -2,7 +2,7 @@ package com.ceiba.paciente;
 
 import com.ceiba.paciente.entidad.Paciente;
 import com.ceiba.paciente.entidad.TipoPaciente;
-import com.ceiba.paciente.puerto.RepositorioPaciente;
+import com.ceiba.paciente.puerto.repositorio.RepositorioPaciente;
 import com.ceiba.paciente.servicio.ServicioRegistrar;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
