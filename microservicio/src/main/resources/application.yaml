@@ -6,7 +6,7 @@ jasypt:
 server:
    port: 8083
    servlet:
-      context-path: /citas
+      context-path: /api/v1
       session:
          timeout: 21600s
 springdoc:
@@ -16,8 +16,9 @@ spring:
    datasource:
       driver-class-name: org.mariadb.jdbc.Driver
       type: com.zaxxer.hikari.HikariDataSource
-      jdbcUrl: jdbc:mysql://localhost:3307/adn
+      jdbcUrl: jdbc:mysql://localhost:3307/odontologia_adn
       username: root
       password:
       hikari:
          poolName: pool
+      flyway.baseline-on-migrate: true
