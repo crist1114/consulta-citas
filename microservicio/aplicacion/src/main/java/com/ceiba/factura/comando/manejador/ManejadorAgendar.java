@@ -23,8 +23,7 @@ public class ManejadorAgendar implements ManejadorComandoRespuesta<ComandoSolici
 
         return new ComandoRespuesta<>(
                 servicioAgendar.ejecutar(
-                        fabricaSolicitudAgendar.crear(comandoSolicitudAgendar)
-        ));
+                        fabricaSolicitudAgendar.crear(comandoSolicitudAgendar)));
     }
 
 }

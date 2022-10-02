@@ -44,20 +44,13 @@ public class Cita {
 
     public static Cita crear(SolicitudAgendar solicitudAgendar, Object fechaUltimaHistoria,
                              List<ResumenCitaDTO> resumenCitaDTOS) {
-
         ValidadorArgumento.validarObligatorio(solicitudAgendar.getIdPaciente(), "El paciente es requerido para agendar");
         ValidadorArgumento.validarObligatorio(solicitudAgendar.getTipoProcedimiento(), "El procedimiento es obligatorio");
+        ValidadorArgumento.validarValido(solicitudAgendar.getTipoProcedimiento(), TipoProcedimiento.class,"El tipo procedimiento no es valido" );
 
-        if(!existeValor(solicitudAgendar.getTipoProcedimiento().toString())){
-            throw new ExcepcionValorInvalido("El tipo procedimiento no es valido");
-        }
-        if(fechaUltimaHistoria!=null) {
-            fechaUltimaHistoria = LocalDate.parse(fechaUltimaHistoria.toString());
-
-            if (solicitudAgendar.getTipoProcedimiento().equals(TipoProcedimiento.MANTENIMIENTO_DE_BRACKETS.toString())
-                    && !historiaValidaParaCitaMantenimiento((LocalDate)fechaUltimaHistoria)) {
-                throw new ExcepcionValorInvalido("Debe agendar cita para limpieza ya que su ultima historia registrada es mayor a 3 meses");
-            }
+        if (solicitudAgendar.getTipoProcedimiento().equals(TipoProcedimiento.MANTENIMIENTO_DE_BRACKETS.toString())
+                    && !historiaValidaParaCitaMantenimiento(fechaUltimaHistoria)) {
+            throw new ExcepcionValorInvalido("Debe agendar cita para limpieza ya que su ultima historia registrada es mayor a 3 meses");
         }
         if(yaTieneCita(resumenCitaDTOS))
             throw new ExcepcionDuplicidad("El paciente ya tiene una cita agendada");
@@ -70,25 +63,15 @@ public class Cita {
                 filter(x -> x.getEstado().equals(EstadoCita.NO_ATENDIDA)).collect(Collectors.toList()).size()>0;
     }
 
-    private static boolean historiaValidaParaCitaMantenimiento(LocalDate fechaUltimaHisotia){
+    private static boolean historiaValidaParaCitaMantenimiento(Object fechaUltimaHistoria){
 
-        if(fechaUltimaHisotia==null)
+        if(fechaUltimaHistoria==null)
             return true;
-
         LocalDate hoy = LocalDate.now();
 
-        Long meses = ChronoUnit.MONTHS.between(fechaUltimaHisotia, hoy);
+        Long meses = ChronoUnit.MONTHS.between(LocalDate.parse(fechaUltimaHistoria.toString()), hoy);
 
         return meses<TIEMPO_MAX_VALIDO_HISTORIA_PARA_CITA_MANTENIMIENTO;
-    }
-
-    private static boolean existeValor(String valor){
-
-        for (TipoProcedimiento tipo : TipoProcedimiento.values()){
-            if(tipo.toString().equals(valor))
-                return true;
-        }
-        return false;
     }
 
     public Long getId() {

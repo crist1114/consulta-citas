@@ -21,9 +21,8 @@ public class Paciente {
         ValidadorArgumento.validarObligatorio(solicitudRegistrar.getId(), "El id es requerido");
         ValidadorArgumento.validarObligatorio(solicitudRegistrar.getNombre(), "El nombre es requerido");
         ValidadorArgumento.validarObligatorio(solicitudRegistrar.getTipoPaciente(), "El tipo paciente es requerido");
-        if(!existeValor(solicitudRegistrar.getTipoPaciente())){
-            throw new ExcepcionValorInvalido("El tipo paciente no es valido");
-        }
+        ValidadorArgumento.validarValido(solicitudRegistrar.getTipoPaciente(), TipoPaciente.class, "El tipo paciente no es valido");
+
         return new Paciente(solicitudRegistrar.getId(), solicitudRegistrar.getNombre(), solicitudRegistrar.getTipoPaciente());
     }
 
