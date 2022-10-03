@@ -1,10 +1,14 @@
 package com.ceiba.cita;
 
+import com.ceiba.BasePrueba;
 import com.ceiba.cita.modelo.entidad.Cita;
 import com.ceiba.cita.modelo.entidad.TipoProcedimiento;
 import com.ceiba.cita.puerto.repositorio.RepositorioCita;
 import com.ceiba.cita.servicio.ServicioAgendar;
+import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.historia.puerto.RepositorioHistoria;
+import com.ceiba.paciente.PacienteTestDataBuilder;
+import com.ceiba.paciente.entidad.Paciente;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -15,8 +19,11 @@ public class ServicioAgendarTest {
     @Test
     void debeeriaGenerarUnIdDeCitaYGuardar(){
 
+        Paciente paciente = new PacienteTestDataBuilder()
+                .conPacientePorDefecto().reconstruir();
+
         var solicitudAgendar = new SolicitudAgendarTestDataBuilder()
-                .conIdPaciente(1091l)
+                .conPaciente(paciente)
                 .conTipoProcedimiento(TipoProcedimiento.LIMPIEZA.toString())
                 .build();
 
@@ -33,4 +40,6 @@ public class ServicioAgendarTest {
         Mockito.verify(repositorioCita, Mockito.times(1)).guardar(captorCita.capture());
         Assertions.assertEquals(1l, idCitaAgendada);
     }
+
+
 }

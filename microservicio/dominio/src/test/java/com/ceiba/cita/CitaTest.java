@@ -1,30 +1,27 @@
 package com.ceiba.cita;
 
 import com.ceiba.BasePrueba;
-import com.ceiba.cita.modelo.dto.ResumenCitaDTO;
 import com.ceiba.cita.modelo.entidad.EstadoCita;
 import com.ceiba.cita.modelo.entidad.TipoProcedimiento;
-import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
-import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.dominio.excepcion.ExcepcionValorObligatorio;
+import com.ceiba.paciente.PacienteTestDataBuilder;
+import com.ceiba.paciente.entidad.Paciente;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-import java.util.Arrays;
-
 public class CitaTest {
 
     @Test
     void deberiaCrearLaCitaCorrectamenteConTipoProcedimientoCalzaDeMuela() {
 
-        var cita = new CitaTestDataBuilder()
-                .conIdPaciente(1090L)
-                        .conTipoProcedimiento(TipoProcedimiento.CALZA_DE_MUELA)
-                                .crear(LocalDate.parse("2022-02-02"),
-                                        Arrays.asList(new ResumenCitaDTO(1l, EstadoCita.ATENDIDA)));
+        Paciente paciente = new PacienteTestDataBuilder()
+                .conPacientePorDefecto().reconstruir();
 
-        Assertions.assertEquals(1090L, cita.getIdPaciente());
+        var cita = new CitaTestDataBuilder()
+                .conPaciente(paciente)
+                        .conTipoProcedimiento(TipoProcedimiento.CALZA_DE_MUELA)
+                                .crear();
+
+        Assertions.assertEquals(1091L, cita.getIdPaciente());
         Assertions.assertEquals(TipoProcedimiento.CALZA_DE_MUELA.toString(), cita.getTipoProcedimiento().toString());
 
     }
@@ -32,13 +29,15 @@ public class CitaTest {
     @Test
     void deberiaCrearLaCitaCorrectamenteConTipoProcedimientoLimpieza() {
 
-        var cita = new CitaTestDataBuilder()
-                .conIdPaciente(1090L)
-                .conTipoProcedimiento(TipoProcedimiento.LIMPIEZA)
-                .crear(LocalDate.parse("2022-02-02"),
-                        Arrays.asList(new ResumenCitaDTO(1l, EstadoCita.ATENDIDA)));
+        Paciente paciente = new PacienteTestDataBuilder()
+                .conPacientePorDefecto().reconstruir();
 
-        Assertions.assertEquals(1090L, cita.getIdPaciente());
+        var cita = new CitaTestDataBuilder()
+                .conPaciente(paciente)
+                .conTipoProcedimiento(TipoProcedimiento.LIMPIEZA)
+                .crear();
+
+        Assertions.assertEquals(1091L, cita.getIdPaciente());
         Assertions.assertEquals(TipoProcedimiento.LIMPIEZA.toString(), cita.getTipoProcedimiento().toString());
 
     }
@@ -46,13 +45,15 @@ public class CitaTest {
     @Test
     void deberiaCrearLaCitaCorrectamenteConTipoProcedimientoBlanqueamientoDental() {
 
-        var cita = new CitaTestDataBuilder()
-                .conIdPaciente(1090L)
-                .conTipoProcedimiento(TipoProcedimiento.BLANQUEAMIENTO_DENTAL)
-                .crear(LocalDate.parse("2022-02-02"),
-                        Arrays.asList(new ResumenCitaDTO(1l, EstadoCita.ATENDIDA)));
+        Paciente paciente = new PacienteTestDataBuilder()
+                .conPacientePorDefecto().reconstruir();
 
-        Assertions.assertEquals(1090L, cita.getIdPaciente());
+        var cita = new CitaTestDataBuilder()
+                .conPaciente(paciente)
+                .conTipoProcedimiento(TipoProcedimiento.BLANQUEAMIENTO_DENTAL)
+                .crear();
+
+        Assertions.assertEquals(1091L, cita.getIdPaciente());
         Assertions.assertEquals(TipoProcedimiento.BLANQUEAMIENTO_DENTAL.toString(), cita.getTipoProcedimiento().toString());
 
     }
@@ -60,13 +61,15 @@ public class CitaTest {
     @Test
     void deberiaCrearLaCitaCorrectamenteConTipoProcedimientoMantenimientoDeBracketsSinHistoriasRegistradas() {
 
-        var cita = new CitaTestDataBuilder()
-                .conIdPaciente(1090L)
-                .conTipoProcedimiento(TipoProcedimiento.MANTENIMIENTO_DE_BRACKETS)
-                .crear(null,
-                        Arrays.asList(new ResumenCitaDTO(1l, EstadoCita.ATENDIDA)));
+        Paciente paciente = new PacienteTestDataBuilder()
+                .conPacientePorDefecto().reconstruir();
 
-        Assertions.assertEquals(1090L, cita.getIdPaciente());
+        var cita = new CitaTestDataBuilder()
+                .conPaciente(paciente)
+                .conTipoProcedimiento(TipoProcedimiento.MANTENIMIENTO_DE_BRACKETS)
+                .crear();
+
+        Assertions.assertEquals(1091L, cita.getIdPaciente());
         Assertions.assertEquals(TipoProcedimiento.MANTENIMIENTO_DE_BRACKETS.toString(), cita.getTipoProcedimiento().toString());
 
     }
@@ -74,50 +77,27 @@ public class CitaTest {
     @Test
     void deberiaCrearLaCitaCorrectamenteConEstadoNoAtendidaPorDefecto() {
 
+        Paciente paciente = new PacienteTestDataBuilder()
+                .conPacientePorDefecto().reconstruir();
+
         var cita = new CitaTestDataBuilder()
-                .conIdPaciente(1090L)
+                .conPaciente(paciente)
                 .conTipoProcedimiento(TipoProcedimiento.CALZA_DE_MUELA)
                 .conEstado()
-                .crear(LocalDate.parse("2022-02-02"),
-                        Arrays.asList(new ResumenCitaDTO(1l, EstadoCita.ATENDIDA)));
+                .crear();
 
-        Assertions.assertEquals(1090L, cita.getIdPaciente());
+        Assertions.assertEquals(1091L, cita.getIdPaciente());
         Assertions.assertEquals(TipoProcedimiento.CALZA_DE_MUELA.toString(), cita.getTipoProcedimiento().toString());
         Assertions.assertEquals(EstadoCita.NO_ATENDIDA, cita.getEstado());
     }
 
     @Test
-    void DeberiaLanzarExcepcionPorHistoriaVencidaMantenimientoBrackets() {
-
-        BasePrueba.assertThrows(()->new CitaTestDataBuilder()
-                        .conIdPaciente(1090l)
-                        .conTipoProcedimiento(TipoProcedimiento.MANTENIMIENTO_DE_BRACKETS)
-                        .crear(LocalDate.parse("2022-02-02"),
-                                Arrays.asList(new ResumenCitaDTO(1l, EstadoCita.ATENDIDA))),
-                ExcepcionValorInvalido.class,
-                "Debe agendar cita para limpieza ya que su ultima historia registrada es mayor a 3 meses");
-    }
-
-    @Test
-    void DeberiaLanzarExcepcionPorqueYaTieneCitaEstadoNoAtendida() {
-
-        BasePrueba.assertThrows(()->new CitaTestDataBuilder()
-                        .conIdPaciente(1090l)
-                        .conTipoProcedimiento(TipoProcedimiento.LIMPIEZA)
-                        .crear(LocalDate.parse("2022-02-02"),
-                                Arrays.asList(new ResumenCitaDTO(1l, EstadoCita.NO_ATENDIDA))),
-                ExcepcionDuplicidad.class,
-                "El paciente ya tiene una cita agendada");
-    }
-
-    @Test
-    void DeberiaLanzarExcepcionNoInsertoPaciente() {
+    void DeberiaLanzarExcepcionNoExistePaciente() {
 
         BasePrueba.assertThrows(()->new CitaTestDataBuilder()
                         .conTipoProcedimiento(TipoProcedimiento.LIMPIEZA)
-                        .crear(LocalDate.parse("2022-02-02"),
-                                Arrays.asList(new ResumenCitaDTO(1l, EstadoCita.ATENDIDA))),
+                        .crear(),
                 ExcepcionValorObligatorio.class,
-                "El paciente es requerido para agendar");
+                "El paciente no existe");
     }
 }

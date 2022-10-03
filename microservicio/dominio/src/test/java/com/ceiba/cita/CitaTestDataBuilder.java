@@ -1,18 +1,19 @@
 package com.ceiba.cita;
 
-import com.ceiba.cita.modelo.dto.ResumenCitaDTO;
 import com.ceiba.cita.modelo.entidad.Cita;
 import com.ceiba.cita.modelo.entidad.EstadoCita;
 import com.ceiba.cita.modelo.entidad.TipoProcedimiento;
+import com.ceiba.paciente.PacienteTest;
+import com.ceiba.paciente.PacienteTestDataBuilder;
+import com.ceiba.paciente.entidad.Paciente;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class CitaTestDataBuilder {
 
     private Long id;
 
-    private Long idPaciente;
+    private Paciente paciente;
 
     private TipoProcedimiento tipoProcedimiento;
 
@@ -24,7 +25,7 @@ public class CitaTestDataBuilder {
 
     public CitaTestDataBuilder conCitaPorDefecto() {
         this.id = 1l;
-        this.idPaciente = Long.valueOf(1090);
+        this.paciente = new PacienteTestDataBuilder().conPacientePorDefecto().reconstruir();
         this.tipoProcedimiento = TipoProcedimiento.LIMPIEZA;
         this.fecha = LocalDate.now();
         this.estado = EstadoCita.NO_ATENDIDA;
@@ -36,8 +37,8 @@ public class CitaTestDataBuilder {
         return this;
     }
 
-    public CitaTestDataBuilder conIdPaciente(Long idPaciente){
-        this.idPaciente = idPaciente;
+    public CitaTestDataBuilder conPaciente(Paciente paciente){
+        this.paciente = paciente;
         return this;
     }
 
@@ -56,13 +57,11 @@ public class CitaTestDataBuilder {
         return this;
     }
 
-    public Cita crear(LocalDate fechaHistoria, List<ResumenCitaDTO> citasAgendadas) {
-        return Cita.crear(  new SolicitudAgendarTestDataBuilder()
-                .conIdPaciente(idPaciente)
+    public Cita crear() {
+        return Cita.crear( new SolicitudAgendarTestDataBuilder()
+                .conPaciente(paciente)
                 .conTipoProcedimiento(tipoProcedimiento.toString())
-                .build(),
-                fechaHistoria,
-                citasAgendadas
+                .build()
                 );
     }
 

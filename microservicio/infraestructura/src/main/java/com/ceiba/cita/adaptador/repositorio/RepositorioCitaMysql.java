@@ -1,10 +1,9 @@
 package com.ceiba.cita.adaptador.repositorio;
-
 import com.ceiba.cita.adaptador.MapeoCitaResumen;
-import com.ceiba.cita.modelo.dto.ResumenCitaDTO;
 import com.ceiba.cita.modelo.entidad.Cita;
 import com.ceiba.cita.puerto.repositorio.RepositorioCita;
 import com.ceiba.infraestructura.jdbc.CustomNamedParameterJdbcTemplate;
+import com.ceiba.infraestructura.jdbc.EjecucionBaseDeDatos;
 import com.ceiba.infraestructura.jdbc.sqlstatement.SqlStatement;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -39,7 +38,7 @@ public class RepositorioCitaMysql implements RepositorioCita {
     public Long guardar(Cita cita) {
         MapSqlParameterSource nombreParam = new MapSqlParameterSource();
 
-        nombreParam.addValue("id_paciente",cita.getIdPaciente());
+        nombreParam.addValue("id_paciente",cita.getPaciente().getId());
         nombreParam.addValue("tipo_procedimiento" , cita.getTipoProcedimiento().toString());
         nombreParam.addValue("fecha", cita.getFecha());
         nombreParam.addValue("estado", cita.getEstado().toString());
@@ -48,14 +47,14 @@ public class RepositorioCitaMysql implements RepositorioCita {
     }
 
     @Override
-    public List<ResumenCitaDTO> ObtenerCitasAgendadasPaciente(Long id_paciente) {
+    public Long obtenerCitasAgendadasPaciente(Long id_paciente) {
 
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
 
         paramSource.addValue("id_paciente", id_paciente);
 
-        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
-                .query(sqlObtenerAgendadas, paramSource, new MapeoCitaResumen());
+       return EjecucionBaseDeDatos.obtenerUnObjetoONull(() -> this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
+                .queryForObject(sqlObtenerAgendadas, paramSource, new MapeoCitaResumen()));
 
     }
 }

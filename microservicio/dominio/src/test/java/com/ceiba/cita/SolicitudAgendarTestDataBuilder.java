@@ -1,10 +1,11 @@
 package com.ceiba.cita;
 
 import com.ceiba.cita.modelo.entidad.SolicitudAgendar;
+import com.ceiba.paciente.entidad.Paciente;
 
 public class SolicitudAgendarTestDataBuilder {
 
-    private Long idPaciente;
+    private Paciente paciente;
     private String tipoProcedimiento;
 
     public SolicitudAgendarTestDataBuilder() {
@@ -15,12 +16,12 @@ public class SolicitudAgendarTestDataBuilder {
         return this;
     }
 
-    public SolicitudAgendarTestDataBuilder conIdPaciente(Long idPaciente){
-        this.idPaciente = idPaciente;
+    public SolicitudAgendarTestDataBuilder conPaciente(Paciente paciente){
+        this.paciente = paciente;
         return this;
     }
 
     public SolicitudAgendar build() {
-        return new SolicitudAgendar(idPaciente, tipoProcedimiento);
+        return new SolicitudAgendar(paciente, tipoProcedimiento);
     }
 }

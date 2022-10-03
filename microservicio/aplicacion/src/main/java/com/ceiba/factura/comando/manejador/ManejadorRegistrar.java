@@ -1,7 +1,6 @@
 package com.ceiba.factura.comando.manejador;
 
 import com.ceiba.ComandoRespuesta;
-import com.ceiba.factura.comando.ComandoSolicitudAgendar;
 import com.ceiba.factura.comando.ComandoSolicitudRegistrar;
 import com.ceiba.factura.comando.fabrica.FabricaSolicitudRegistrar;
 import com.ceiba.manejador.ManejadorComandoRespuesta;

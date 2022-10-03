@@ -27,14 +27,13 @@ public class ServicioRegistrarTest {
         var repositorioPaciente = Mockito.mock(RepositorioPaciente.class);
 
         Mockito.when(repositorioPaciente.guardar(Mockito.any())).thenReturn(1091l);
-
         var servicioRegistrar = new ServicioRegistrar(repositorioPaciente);
 
-        var idPacienteRegistrado = servicioRegistrar.ejecutar(solicitudRegistrar);
+       var idPacienteRegistrado = servicioRegistrar.ejecutar(solicitudRegistrar);
 
-        ArgumentCaptor<Paciente> captorPaciente = ArgumentCaptor.forClass(Paciente.class);
-        Mockito.verify(repositorioPaciente, Mockito.times(1)).guardar(captorPaciente.capture());
-        Assertions.assertEquals(paciente.getTipoPaciente(), captorPaciente.getValue().getTipoPaciente());
-        Assertions.assertEquals(1091l, idPacienteRegistrado);
-    }
+       ArgumentCaptor<Paciente> captorPaciente = ArgumentCaptor.forClass(Paciente.class);
+       Mockito.verify(repositorioPaciente, Mockito.times(1)).guardar(captorPaciente.capture());
+       Assertions.assertEquals(paciente.getTipoPaciente(), captorPaciente.getValue().getTipoPaciente());
+       Assertions.assertEquals(1091l, idPacienteRegistrado);
+   }
 }

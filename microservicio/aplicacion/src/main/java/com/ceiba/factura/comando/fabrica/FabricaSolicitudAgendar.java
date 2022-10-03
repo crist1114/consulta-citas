@@ -2,21 +2,21 @@ package com.ceiba.factura.comando.fabrica;
 
 import com.ceiba.cita.modelo.entidad.SolicitudAgendar;
 import com.ceiba.factura.comando.ComandoSolicitudAgendar;
+import com.ceiba.paciente.puerto.repositorio.RepositorioPaciente;
 import org.springframework.stereotype.Component;
 @Component
 public class FabricaSolicitudAgendar {
 
+    private RepositorioPaciente repositorioPaciente;
 
-
-    public FabricaSolicitudAgendar() {
-
+    public FabricaSolicitudAgendar(RepositorioPaciente repositorioPaciente) {
+        this.repositorioPaciente = repositorioPaciente;
     }
 
     public SolicitudAgendar crear(ComandoSolicitudAgendar comandoSolicitudAgendar){
 
-
         return new SolicitudAgendar(
-                    comandoSolicitudAgendar.getId_paciente(),
+                    repositorioPaciente.obtener(comandoSolicitudAgendar.getId_paciente()),
                     comandoSolicitudAgendar.getTipo_procedimiento()
                 );
     }

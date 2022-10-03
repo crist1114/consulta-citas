@@ -12,7 +12,6 @@ import lombok.Setter;
 public class ComandoSolicitudAgendar {
 
     private Long id_paciente;
-
     private String tipo_procedimiento;
 
 }

@@ -7,12 +7,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class FabricaSolicitudRegistrar {
 
-    public FabricaSolicitudRegistrar() {
-    }
-
     public SolicitudRegistrar crear(ComandoSolicitudRegistrar comandoSolicitudRegistrar) {
         return new SolicitudRegistrar(comandoSolicitudRegistrar.getId(),
-                comandoSolicitudRegistrar.getNombre(), comandoSolicitudRegistrar.getTipoPaciente()
+                comandoSolicitudRegistrar.getNombre(),
+                comandoSolicitudRegistrar.getTipoPaciente()
         );
     }
 }
