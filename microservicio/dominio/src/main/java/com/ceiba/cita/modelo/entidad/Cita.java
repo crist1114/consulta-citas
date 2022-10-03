@@ -8,7 +8,7 @@ public class Cita {
 
     private Long id;
 
-    private Paciente paciente;
+    private Long idPaciente;
 
     private final TipoProcedimiento tipoProcedimiento;
 
@@ -19,18 +19,19 @@ public class Cita {
     private static final int TIEMPO_MAX_VALIDO_HISTORIA_PARA_CITA_MANTENIMIENTO = 3;
 
 
-    private Cita(Paciente paciente, String tipoProcedimiento){
-        this.paciente = paciente;
+    private Cita(Long idPaciente, String tipoProcedimiento){
+        this.idPaciente = idPaciente;
         this.tipoProcedimiento = TipoProcedimiento.valueOf(tipoProcedimiento);
         this.fecha = LocalDate.now();
         this.estado = EstadoCita.NO_ATENDIDA;
     }
 
-    private Cita(Long id, Paciente paciente, TipoProcedimiento tipoProcedimiento, LocalDate fecha) {
+    private Cita(Long id, Long idPaciente, String tipoProcedimiento, LocalDate fecha, String estado) {
         this.id = id;
-        this.paciente = paciente;
-        this.tipoProcedimiento = tipoProcedimiento;
+        this.idPaciente = idPaciente;
+        this.tipoProcedimiento = TipoProcedimiento.valueOf(tipoProcedimiento);
         this.fecha = fecha;
+        this.estado = EstadoCita.valueOf(estado);
     }
 
     public static Cita crear(SolicitudAgendar solicitudAgendar) {
@@ -39,7 +40,19 @@ public class Cita {
         ValidadorArgumento.validarObligatorio(solicitudAgendar.getTipoProcedimiento(), "El procedimiento es obligatorio");
         ValidadorArgumento.validarValido(solicitudAgendar.getTipoProcedimiento(), TipoProcedimiento.class,"El tipo procedimiento no es valido" );
 
-        return new Cita(solicitudAgendar.getPaciente(), solicitudAgendar.getTipoProcedimiento());
+        return new Cita(solicitudAgendar.getPaciente().getId(), solicitudAgendar.getTipoProcedimiento());
+    }
+
+    public static Cita reconstruir(Long id, Long idPaciente, String tipoProcedimiento, LocalDate fecha, String estado){
+
+
+        ValidadorArgumento.validarObligatorio(id, "El id no es valido");
+        ValidadorArgumento.validarObligatorio(idPaciente, "El id paciente es obligatorio");
+        ValidadorArgumento.validarObligatorio(tipoProcedimiento, "El tipo procedimiento es obligatorio" );
+        ValidadorArgumento.validarObligatorio(fecha, "La fecha es obligatoria");
+        ValidadorArgumento.validarObligatorio(estado, "el estado es obligatorio");
+
+        return new Cita(id,idPaciente,tipoProcedimiento,fecha,estado);
     }
 
     public boolean historiaValidaParaCitaMantenimiento(Object fechaUltimaHistoria){
@@ -57,9 +70,6 @@ public class Cita {
         return id;
     }
 
-    public Paciente getPaciente() {
-        return paciente;
-    }
     public TipoProcedimiento getTipoProcedimiento() {
         return tipoProcedimiento;
     }
@@ -73,8 +83,9 @@ public class Cita {
     }
 
     public Long getIdPaciente(){
-        return this.paciente.getId();
+        return this.idPaciente;
     }
+
     public boolean esMantenimientoDeBrackets(){
         return this.tipoProcedimiento.equals(TipoProcedimiento.MANTENIMIENTO_DE_BRACKETS);
     }

@@ -25,17 +25,24 @@ public class ServicioAgendar {
     public Long ejecutar(SolicitudAgendar solicitudAgendar) {
 
         var cita = Cita.crear(solicitudAgendar);
-
-        var fechaUltimaHistoria = repositorioHistoria.obtenerFechaReciente(cita.getIdPaciente());
-        Long totalDeCitas = repositorioCita.obtenerCitasAgendadasPaciente(cita.getIdPaciente());
-
-        if(totalDeCitas>0)
-            throw new ExcepcionValorInvalido("El paciente ya tiene cita agendada");
-
-        if(cita.esMantenimientoDeBrackets()
-         && !cita.historiaValidaParaCitaMantenimiento(fechaUltimaHistoria))
-            throw new ExcepcionValorInvalido("Debe agendar cita para limpieza ya que su ultima historia registrada es mayor a 3 meses");
+        pacienteYaTieneCita(cita.getIdPaciente());
+        citaNoValidaParaMantenimiento(cita);
 
         return repositorioCita.guardar(cita);
     }
+
+    private void pacienteYaTieneCita(Long id){
+        if(repositorioCita.obtenerCitasAgendadasPaciente(id)>0)
+            throw new ExcepcionValorInvalido("El paciente ya tiene cita agendada");
+    }
+
+    private void citaNoValidaParaMantenimiento(Cita cita){
+        var fechaUltimaHistoria = repositorioHistoria.obtenerFechaReciente(cita.getIdPaciente());
+        if(cita.esMantenimientoDeBrackets()
+                && !cita.historiaValidaParaCitaMantenimiento(fechaUltimaHistoria)) {
+            throw new ExcepcionValorInvalido("Debe agendar cita para limpieza ya que su ultima historia registrada es mayor a 3 meses");
+        }
+    }
+
+
 }

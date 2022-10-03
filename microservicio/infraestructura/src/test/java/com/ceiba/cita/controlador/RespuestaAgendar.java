@@ -2,17 +2,17 @@ package com.ceiba.cita.controlador;
 
 public class RespuestaAgendar {
 
-        private Long id;
+        private Long valor;
 
         public RespuestaAgendar() {
         }
 
-        public RespuestaAgendar(Long id) {
-            this.id = id;
+        public RespuestaAgendar(Long valor) {
+            this.valor = valor;
         }
 
-        public Long getId() {
-            return id;
+        public Long getValor() {
+            return valor;
         }
 
 }

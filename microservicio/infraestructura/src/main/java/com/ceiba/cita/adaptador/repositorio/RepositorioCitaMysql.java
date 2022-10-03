@@ -1,4 +1,5 @@
 package com.ceiba.cita.adaptador.repositorio;
+import com.ceiba.cita.adaptador.MapeoCita;
 import com.ceiba.cita.adaptador.MapeoCitaResumen;
 import com.ceiba.cita.modelo.entidad.Cita;
 import com.ceiba.cita.puerto.repositorio.RepositorioCita;
@@ -26,11 +27,19 @@ public class RepositorioCitaMysql implements RepositorioCita {
     @SqlStatement(namespace = "cita", value = "obteneragendadas")
     private static String sqlObtenerAgendadas;
 
+    @SqlStatement(namespace = "cita", value = "obtenercita.sql")
+    private static String sqlObtenerCita;
+
 
     @Override
     public Cita obtener(Long id) {
 
-        return null;
+        MapSqlParameterSource paramSource = new MapSqlParameterSource();
+
+        paramSource.addValue("id", id);
+
+        return EjecucionBaseDeDatos.obtenerUnObjetoONull(() -> this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
+                .queryForObject(sqlObtenerCita, paramSource, new MapeoCita()));
 
     }
 
@@ -38,7 +47,7 @@ public class RepositorioCitaMysql implements RepositorioCita {
     public Long guardar(Cita cita) {
         MapSqlParameterSource nombreParam = new MapSqlParameterSource();
 
-        nombreParam.addValue("id_paciente",cita.getPaciente().getId());
+        nombreParam.addValue("id_paciente",cita.getIdPaciente());
         nombreParam.addValue("tipo_procedimiento" , cita.getTipoProcedimiento().toString());
         nombreParam.addValue("fecha", cita.getFecha());
         nombreParam.addValue("estado", cita.getEstado().toString());

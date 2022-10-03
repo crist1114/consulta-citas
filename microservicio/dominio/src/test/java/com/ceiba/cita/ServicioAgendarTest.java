@@ -2,6 +2,7 @@ package com.ceiba.cita;
 
 import com.ceiba.BasePrueba;
 import com.ceiba.cita.modelo.entidad.Cita;
+import com.ceiba.cita.modelo.entidad.SolicitudAgendar;
 import com.ceiba.cita.modelo.entidad.TipoProcedimiento;
 import com.ceiba.cita.puerto.repositorio.RepositorioCita;
 import com.ceiba.cita.servicio.ServicioAgendar;
@@ -14,10 +15,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
+import java.time.LocalDate;
+
 public class ServicioAgendarTest {
 
     @Test
-    void debeeriaGenerarUnIdDeCitaYGuardar(){
+    void debeeriaGenerarCitaYGuardar(){
 
         Paciente paciente = new PacienteTestDataBuilder()
                 .conPacientePorDefecto().reconstruir();
@@ -39,6 +42,62 @@ public class ServicioAgendarTest {
         ArgumentCaptor<Cita> captorCita = ArgumentCaptor.forClass(Cita.class);
         Mockito.verify(repositorioCita, Mockito.times(1)).guardar(captorCita.capture());
         Assertions.assertEquals(1l, idCitaAgendada);
+        Assertions.assertEquals(paciente.getId(), captorCita.getValue().getIdPaciente());
+        Assertions.assertEquals(TipoProcedimiento.LIMPIEZA, captorCita.getValue().getTipoProcedimiento());
+    }
+
+    @Test
+    void historiaNoValidaParaCitaMantenimientoBracketsDeberiaLanzarExcepcion(){
+
+        LocalDate fecha = LocalDate.now().minusMonths(4);
+
+        Paciente paciente = new PacienteTestDataBuilder()
+                .conPacientePorDefecto().reconstruir();
+
+        SolicitudAgendar solicitud = new SolicitudAgendarTestDataBuilder()
+                .conPaciente(paciente)
+                .conTipoProcedimiento(TipoProcedimiento.MANTENIMIENTO_DE_BRACKETS.toString()).build();
+
+        RepositorioCita repositorioCita = Mockito.mock(RepositorioCita.class);
+        RepositorioHistoria repositorioHistoria = Mockito.mock(RepositorioHistoria.class);
+
+        Mockito.when(repositorioCita.guardar(Mockito.any())).thenReturn(1l);
+        Mockito.when(repositorioHistoria.obtenerFechaReciente(Mockito.any())).thenReturn(fecha);
+
+        var servicioAgendar = new ServicioAgendar(repositorioCita, repositorioHistoria);
+
+        BasePrueba.assertThrows(()->
+                servicioAgendar.ejecutar(solicitud),
+                ExcepcionValorInvalido.class,
+                "Debe agendar cita para limpieza ya que su ultima historia registrada es mayor a 3 meses"
+                );
+
+    }
+
+    @Test
+    void guardarCitaSiPacienteYaTieneCitaDeberiaLanzarExcepcion(){
+
+        Paciente paciente = new PacienteTestDataBuilder()
+                .conPacientePorDefecto().reconstruir();
+
+        SolicitudAgendar solicitud = new SolicitudAgendarTestDataBuilder()
+                .conPaciente(paciente)
+                .conTipoProcedimiento(TipoProcedimiento.MANTENIMIENTO_DE_BRACKETS.toString()).build();
+
+        RepositorioCita repositorioCita = Mockito.mock(RepositorioCita.class);
+        RepositorioHistoria repositorioHistoria = Mockito.mock(RepositorioHistoria.class);
+
+        Mockito.when(repositorioCita.guardar(Mockito.any())).thenReturn(1l);
+        Mockito.when(repositorioCita.obtenerCitasAgendadasPaciente(Mockito.any())).thenReturn(2l);
+
+        var servicioAgendar = new ServicioAgendar(repositorioCita, repositorioHistoria);
+
+        BasePrueba.assertThrows(()->
+                        servicioAgendar.ejecutar(solicitud),
+                ExcepcionValorInvalido.class,
+                "El paciente ya tiene cita agendada"
+        );
+
     }
 
 

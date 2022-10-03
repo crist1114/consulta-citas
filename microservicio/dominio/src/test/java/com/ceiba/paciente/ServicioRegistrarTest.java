@@ -1,5 +1,8 @@
 package com.ceiba.paciente;
 
+import com.ceiba.BasePrueba;
+import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
+import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.paciente.entidad.Paciente;
 import com.ceiba.paciente.entidad.TipoPaciente;
 import com.ceiba.paciente.puerto.repositorio.RepositorioPaciente;
@@ -36,4 +39,31 @@ public class ServicioRegistrarTest {
        Assertions.assertEquals(paciente.getTipoPaciente(), captorPaciente.getValue().getTipoPaciente());
        Assertions.assertEquals(1091l, idPacienteRegistrado);
    }
+
+    @Test
+    void deberiaLanzarExcepcionPacienteYaExiste(){
+
+        Paciente paciente = new PacienteTestDataBuilder()
+                .conPacientePorDefecto()
+                .reconstruir();
+
+        var solicitudRegistrar = new SolicitudRegistrarTestDataBuilder()
+                .conId(paciente.getId())
+                .conTipoPaciente(paciente.getTipoPaciente())
+                .conNombre(paciente.getNombre())
+                .build();
+
+        var repositorioPaciente = Mockito.mock(RepositorioPaciente.class);
+
+        Mockito.when(repositorioPaciente.guardar(Mockito.any())).thenReturn(1091l);
+        Mockito.when(repositorioPaciente.obtener(Mockito.any())).thenReturn(paciente);
+
+        var servicioRegistrar = new ServicioRegistrar(repositorioPaciente);
+
+        BasePrueba.assertThrows(()->
+                        servicioRegistrar.ejecutar(solicitudRegistrar),
+                ExcepcionDuplicidad.class,
+                "El paciente ya se encuentra registrado"
+        );
+    }
 }

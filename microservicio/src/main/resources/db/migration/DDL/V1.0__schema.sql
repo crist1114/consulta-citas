@@ -23,14 +23,14 @@ create table cita (
 );
 
 ALTER TABLE historia
-ADD CONSTRAINT paciente_fk
+ADD CONSTRAINT paciente_historia_fk
   FOREIGN KEY (id_paciente)
   REFERENCES paciente (id)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
 ALTER TABLE cita
-ADD CONSTRAINT paciente_fk
+ADD CONSTRAINT paciente_cita_fk
   FOREIGN KEY (id_paciente)
   REFERENCES paciente (id)
   ON DELETE NO ACTION
