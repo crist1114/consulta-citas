@@ -3,7 +3,7 @@ package com.ceiba.paciente.entidad;
 import com.ceiba.dominio.ValidadorArgumento;
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 
-public class Paciente {
+public final class Paciente {
 
     private Long id;
 

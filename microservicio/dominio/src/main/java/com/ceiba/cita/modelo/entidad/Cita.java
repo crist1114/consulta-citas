@@ -4,7 +4,7 @@ import com.ceiba.paciente.entidad.Paciente;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public class Cita {
+public final class Cita {
 
     private Long id;
 

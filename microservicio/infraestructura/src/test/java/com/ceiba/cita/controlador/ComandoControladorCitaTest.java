@@ -64,4 +64,18 @@ public class ComandoControladorCitaTest {
 
     }
 
+    @Test
+    void crearCitaDeberiaLanzarExcepcionPacienteNoExiste() throws Exception {
+
+        ComandoSolicitudAgendar comandoAgendarTestDataBuilder = new ComandoAgendarTestDataBuilder()
+                .crearPorDefecto()
+                .conIdPaciente(1090l)
+                .build();
+
+        mocMvc.perform(post("/cita")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(comandoAgendarTestDataBuilder)))
+                .andExpect(status().is4xxClientError()).andReturn();
+    }
+
 }
