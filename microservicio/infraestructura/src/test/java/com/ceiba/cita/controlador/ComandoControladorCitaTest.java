@@ -43,7 +43,9 @@ public class ComandoControladorCitaTest {
     void crearCitaExitoso() throws Exception {
 
         ComandoSolicitudAgendar comandoAgendarTestDataBuilder = new ComandoAgendarTestDataBuilder()
-                .crearPorDefecto().build();
+                .crearPorDefecto()
+                .conIdPaciente(1093l)
+                .build();
 
         var resultado = mocMvc.perform(post("/cita")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -57,7 +59,7 @@ public class ComandoControladorCitaTest {
         var citaGuardada = repositorioCita.obtener(respuesta.getValor());
 
         Assertions.assertEquals(2l, citaGuardada.getId());
-        Assertions.assertEquals(comandoAgendarTestDataBuilder.getId_paciente(), citaGuardada.getIdPaciente());
+        Assertions.assertEquals(comandoAgendarTestDataBuilder.getIdPaciente(), citaGuardada.getIdPaciente());
         Assertions.assertEquals(TipoProcedimiento.LIMPIEZA.toString(), citaGuardada.getTipoProcedimiento().toString());
 
     }

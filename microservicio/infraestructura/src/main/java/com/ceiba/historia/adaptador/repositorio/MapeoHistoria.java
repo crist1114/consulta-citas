@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 @Component
 public class MapeoHistoria implements RowMapper<Object>, MapperResult {
@@ -16,8 +15,6 @@ public class MapeoHistoria implements RowMapper<Object>, MapperResult {
     @Override
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-        var fecha = rs.getDate("fecha_emision");
-
-        return fecha;
+      return rs.getDate("fecha_emision");
     }
 }

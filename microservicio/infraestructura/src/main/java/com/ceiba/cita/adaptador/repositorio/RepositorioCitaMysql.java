@@ -56,11 +56,11 @@ public class RepositorioCitaMysql implements RepositorioCita {
     }
 
     @Override
-    public Long obtenerCitasAgendadasPaciente(Long id_paciente) {
+    public Long obtenerCitasAgendadasPaciente(Long idPaciente) {
 
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
 
-        paramSource.addValue("id_paciente", id_paciente);
+        paramSource.addValue("id_paciente", idPaciente);
 
        return EjecucionBaseDeDatos.obtenerUnObjetoONull(() -> this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
                 .queryForObject(sqlObtenerAgendadas, paramSource, new MapeoCitaResumen()));

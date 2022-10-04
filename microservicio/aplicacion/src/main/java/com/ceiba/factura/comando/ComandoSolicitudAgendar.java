@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ComandoSolicitudAgendar {
 
-    private Long id_paciente;
-    private String tipo_procedimiento;
+    private Long idPaciente;
+    private String tipoProcedimiento;
 
 }

@@ -22,6 +22,12 @@ public class ComandoAgendarTestDataBuilder {
 
     }
 
+    public ComandoAgendarTestDataBuilder conIdPaciente(Long id) {
+        this.id_paciente = id;
+        return this;
+
+    }
+
     public ComandoSolicitudAgendar build() {
         return new ComandoSolicitudAgendar(this.id_paciente, this.tipo_procedimiento);
     }

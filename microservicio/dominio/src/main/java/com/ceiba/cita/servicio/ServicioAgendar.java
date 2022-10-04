@@ -9,6 +9,8 @@ import com.ceiba.dominio.ValidadorArgumento;
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.historia.puerto.RepositorioHistoria;
 
+import java.sql.SQLOutput;
+
 
 public class ServicioAgendar {
 
@@ -32,6 +34,7 @@ public class ServicioAgendar {
     }
 
     private void pacienteYaTieneCita(Long id){
+
         if(repositorioCita.obtenerCitasAgendadasPaciente(id)>0)
             throw new ExcepcionValorInvalido("El paciente ya tiene cita agendada");
     }

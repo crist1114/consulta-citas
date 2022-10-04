@@ -16,8 +16,8 @@ public class FabricaSolicitudAgendar {
     public SolicitudAgendar crear(ComandoSolicitudAgendar comandoSolicitudAgendar){
 
         return new SolicitudAgendar(
-                    repositorioPaciente.obtener(comandoSolicitudAgendar.getId_paciente()),
-                    comandoSolicitudAgendar.getTipo_procedimiento()
+                    repositorioPaciente.obtener(comandoSolicitudAgendar.getIdPaciente()),
+                    comandoSolicitudAgendar.getTipoProcedimiento()
                 );
     }
 }
