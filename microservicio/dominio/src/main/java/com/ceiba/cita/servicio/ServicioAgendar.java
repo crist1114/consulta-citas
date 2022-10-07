@@ -9,6 +9,7 @@ import com.ceiba.dominio.ValidadorArgumento;
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.historia.puerto.RepositorioHistoria;
 
+import java.math.BigDecimal;
 import java.sql.SQLOutput;
 
 
@@ -27,11 +28,24 @@ public class ServicioAgendar {
     public Long ejecutar(SolicitudAgendar solicitudAgendar) {
 
         var cita = Cita.crear(solicitudAgendar);
+        BigDecimal valorCita = cita.getValorPorTipo(solicitudAgendar.getTipoPaciente());
+
+        elMontoEsMenor(valorCita, solicitudAgendar.getValor());
         pacienteYaTieneCita(cita.getIdPaciente());
         citaNoValidaParaMantenimiento(cita);
 
         return repositorioCita.guardar(cita);
     }
+
+    private void elMontoEsMenor(BigDecimal valorCita, BigDecimal valorPagado) {
+        double diferencia = diferencia(valorCita, valorPagado);
+
+        if(diferencia < 0){
+            throw new ExcepcionValorInvalido("El monto es menor por "+diferencia*(-1)+ "$");
+        }
+    }
+
+    private double diferencia(BigDecimal valorCita, BigDecimal valorPagado){return valorPagado.subtract(valorCita).doubleValue();}
 
     private void pacienteYaTieneCita(Long id){
 

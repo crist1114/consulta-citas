@@ -7,6 +7,7 @@ import com.ceiba.paciente.PacienteTest;
 import com.ceiba.paciente.PacienteTestDataBuilder;
 import com.ceiba.paciente.entidad.Paciente;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class CitaTestDataBuilder {
@@ -23,12 +24,15 @@ public class CitaTestDataBuilder {
 
     private static final int TIEMPO_MAX_VALIDO_HISTORIA_PARA_CITA_MANTENIMIENTO = 3;
 
+    private BigDecimal valorPagado;
+
     public CitaTestDataBuilder conCitaPorDefecto() {
         this.id = 1l;
         this.paciente = new PacienteTestDataBuilder().conPacientePorDefecto().reconstruir();
         this.tipoProcedimiento = TipoProcedimiento.LIMPIEZA;
         this.fecha = LocalDate.now();
         this.estado = EstadoCita.NO_ATENDIDA;
+        this.valorPagado = new BigDecimal(55000);
         return this;
     }
 
@@ -47,13 +51,8 @@ public class CitaTestDataBuilder {
         return this;
     }
 
-    public CitaTestDataBuilder conFecha() {
-        this.fecha = LocalDate.now();
-        return this;
-    }
-
-    public CitaTestDataBuilder conEstado() {
-        this.estado = EstadoCita.NO_ATENDIDA;
+    public CitaTestDataBuilder conValorPagado(double valor){
+        this.valorPagado = new BigDecimal(valor);
         return this;
     }
 
@@ -61,6 +60,7 @@ public class CitaTestDataBuilder {
         return Cita.crear( new SolicitudAgendarTestDataBuilder()
                 .conPaciente(paciente)
                 .conTipoProcedimiento(tipoProcedimiento.toString())
+                        .conValorPagado(valorPagado)
                 .build()
                 );
     }

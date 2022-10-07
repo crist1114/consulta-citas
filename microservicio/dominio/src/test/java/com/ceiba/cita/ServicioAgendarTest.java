@@ -15,12 +15,15 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class ServicioAgendarTest {
 
+    private BigDecimal VALOR_CONTRIBUTIVO = new BigDecimal(55000);
+
     @Test
-    void debeeriaGenerarCitaYGuardar(){
+    void deberiaGenerarCitaYGuardar(){
 
         Paciente paciente = new PacienteTestDataBuilder()
                 .conPacientePorDefecto().reconstruir();
@@ -28,6 +31,7 @@ public class ServicioAgendarTest {
         var solicitudAgendar = new SolicitudAgendarTestDataBuilder()
                 .conPaciente(paciente)
                 .conTipoProcedimiento(TipoProcedimiento.LIMPIEZA.toString())
+                .conValorPagado(VALOR_CONTRIBUTIVO)
                 .build();
 
         var repositorioCita = Mockito.mock(RepositorioCita.class);
@@ -44,6 +48,7 @@ public class ServicioAgendarTest {
         Assertions.assertEquals(1l, idCitaAgendada);
         Assertions.assertEquals(paciente.getId(), captorCita.getValue().getIdPaciente());
         Assertions.assertEquals(TipoProcedimiento.LIMPIEZA, captorCita.getValue().getTipoProcedimiento());
+        Assertions.assertEquals(VALOR_CONTRIBUTIVO, captorCita.getValue().getValor());
     }
 
     @Test
@@ -56,7 +61,9 @@ public class ServicioAgendarTest {
 
         SolicitudAgendar solicitud = new SolicitudAgendarTestDataBuilder()
                 .conPaciente(paciente)
-                .conTipoProcedimiento(TipoProcedimiento.MANTENIMIENTO_DE_BRACKETS.toString()).build();
+                .conTipoProcedimiento(TipoProcedimiento.MANTENIMIENTO_DE_BRACKETS.toString())
+                .conValorPagado(new BigDecimal(55000))
+                .build();
 
         RepositorioCita repositorioCita = Mockito.mock(RepositorioCita.class);
         RepositorioHistoria repositorioHistoria = Mockito.mock(RepositorioHistoria.class);
@@ -82,7 +89,9 @@ public class ServicioAgendarTest {
 
         SolicitudAgendar solicitud = new SolicitudAgendarTestDataBuilder()
                 .conPaciente(paciente)
-                .conTipoProcedimiento(TipoProcedimiento.MANTENIMIENTO_DE_BRACKETS.toString()).build();
+                .conTipoProcedimiento(TipoProcedimiento.MANTENIMIENTO_DE_BRACKETS.toString())
+                .conValorPagado(new BigDecimal(55000))
+                .build();
 
         RepositorioCita repositorioCita = Mockito.mock(RepositorioCita.class);
         RepositorioHistoria repositorioHistoria = Mockito.mock(RepositorioHistoria.class);

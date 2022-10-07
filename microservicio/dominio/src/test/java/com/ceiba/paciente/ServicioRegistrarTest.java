@@ -2,7 +2,6 @@ package com.ceiba.paciente;
 
 import com.ceiba.BasePrueba;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
-import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.paciente.entidad.Paciente;
 import com.ceiba.paciente.entidad.TipoPaciente;
 import com.ceiba.paciente.puerto.repositorio.RepositorioPaciente;
@@ -17,6 +16,8 @@ public class ServicioRegistrarTest {
 
     @Test
     void deberiaGenerarIdDeRegistro(){
+
+        //preparar
         Paciente paciente = new PacienteTestDataBuilder()
                 .conPacientePorDefecto()
                 .reconstruir();
@@ -28,21 +29,23 @@ public class ServicioRegistrarTest {
                 .build();
 
         var repositorioPaciente = Mockito.mock(RepositorioPaciente.class);
-
-        Mockito.when(repositorioPaciente.guardar(Mockito.any())).thenReturn(1091l);
         var servicioRegistrar = new ServicioRegistrar(repositorioPaciente);
 
-       var idPacienteRegistrado = servicioRegistrar.ejecutar(solicitudRegistrar);
+        //actuar
+        Mockito.when(repositorioPaciente.guardar(Mockito.any())).thenReturn(1091l);
+        var idPacienteRegistrado = servicioRegistrar.ejecutar(solicitudRegistrar);
+        ArgumentCaptor<Paciente> captorPaciente = ArgumentCaptor.forClass(Paciente.class);
+        Mockito.verify(repositorioPaciente, Mockito.times(1)).guardar(captorPaciente.capture());
 
-       ArgumentCaptor<Paciente> captorPaciente = ArgumentCaptor.forClass(Paciente.class);
-       Mockito.verify(repositorioPaciente, Mockito.times(1)).guardar(captorPaciente.capture());
-       Assertions.assertEquals(paciente.getTipoPaciente(), captorPaciente.getValue().getTipoPaciente());
-       Assertions.assertEquals(1091l, idPacienteRegistrado);
+        //verificar
+        Assertions.assertEquals(paciente.getTipoPaciente(), captorPaciente.getValue().getTipoPaciente());
+        Assertions.assertEquals(1091l, idPacienteRegistrado);
    }
 
     @Test
     void deberiaLanzarExcepcionPacienteYaExiste(){
 
+        //preparar
         Paciente paciente = new PacienteTestDataBuilder()
                 .conPacientePorDefecto()
                 .reconstruir();
@@ -55,11 +58,13 @@ public class ServicioRegistrarTest {
 
         var repositorioPaciente = Mockito.mock(RepositorioPaciente.class);
 
+        //actuar
         Mockito.when(repositorioPaciente.guardar(Mockito.any())).thenReturn(1091l);
         Mockito.when(repositorioPaciente.obtener(Mockito.any())).thenReturn(paciente);
 
         var servicioRegistrar = new ServicioRegistrar(repositorioPaciente);
 
+        //verificar
         BasePrueba.assertThrows(()->
                         servicioRegistrar.ejecutar(solicitudRegistrar),
                 ExcepcionDuplicidad.class,

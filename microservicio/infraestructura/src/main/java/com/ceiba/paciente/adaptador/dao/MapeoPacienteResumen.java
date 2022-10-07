@@ -1,4 +1,4 @@
-package com.ceiba.paciente.adaptador.repositorio;
+package com.ceiba.paciente.adaptador.dao;
 
 import com.ceiba.infraestructura.jdbc.MapperResult;
 import com.ceiba.paciente.entidad.ResumenPacienteDTO;
@@ -13,10 +13,11 @@ public class MapeoPacienteResumen implements RowMapper<ResumenPacienteDTO>, Mapp
 
     @Override
     public ResumenPacienteDTO mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+
         var id = resultSet.getLong("id");
         var nombre = resultSet.getString("nombre");
         var tipoPaciente = resultSet.getString("tipo_paciente");
 
-        return new ResumenPacienteDTO(id, nombre,tipoPaciente);
+        return new ResumenPacienteDTO(id, nombre, tipoPaciente);
     }
 }

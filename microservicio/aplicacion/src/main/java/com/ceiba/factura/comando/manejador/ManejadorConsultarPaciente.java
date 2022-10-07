@@ -1,19 +1,22 @@
-package com.ceiba.factura.consulta;
+package com.ceiba.factura.comando.manejador;
 
 import com.ceiba.paciente.entidad.ResumenPacienteDTO;
 import com.ceiba.paciente.puerto.dao.DaoPaciente;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ManejadorConsultarPacientes {
+public class ManejadorConsultarPaciente {
+
 
     private final DaoPaciente daoPaciente;
 
-    public ManejadorConsultarPacientes(DaoPaciente daoPaciente) {
+
+    public ManejadorConsultarPaciente(DaoPaciente daoPaciente) {
         this.daoPaciente = daoPaciente;
     }
 
-    public ResumenPacienteDTO ejecutar(Long id) {
+    public ResumenPacienteDTO ejecutar(Long id){
+
         return daoPaciente.obtenerPaciente(id);
     }
 }

@@ -19,6 +19,7 @@ create table cita (
  tipo_procedimiento varchar(100) not null,
  fecha DATE not null,
  estado varchar(50),
+ valor DECIMAL(10,2) not null,
  primary key (id)
 );
 

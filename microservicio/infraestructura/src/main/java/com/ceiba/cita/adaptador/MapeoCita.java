@@ -21,6 +21,8 @@ public class MapeoCita implements RowMapper<Cita>, MapperResult {
         var tipoProcedimiento = rs.getString("tipo_procedimiento");
         var fecha = rs.getDate("fecha").toLocalDate();
         var estado = rs.getString("estado");
+        var valor = rs.getString("valor");
+
 
         return Cita.reconstruir(id,idPaciente,tipoProcedimiento,fecha,estado);
     }

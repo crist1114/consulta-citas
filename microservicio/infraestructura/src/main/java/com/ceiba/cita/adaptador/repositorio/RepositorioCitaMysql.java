@@ -51,6 +51,7 @@ public class RepositorioCitaMysql implements RepositorioCita {
         nombreParam.addValue("tipo_procedimiento" , cita.getTipoProcedimiento().toString());
         nombreParam.addValue("fecha", cita.getFecha());
         nombreParam.addValue("estado", cita.getEstado().toString());
+        nombreParam.addValue("valor", cita.getValor());
 
         return this.customNamedParameterJdbcTemplate.crear(nombreParam, sqlGuardar);
     }

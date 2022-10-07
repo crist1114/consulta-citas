@@ -4,10 +4,14 @@ import com.ceiba.cita.modelo.entidad.EstadoCita;
 import com.ceiba.cita.modelo.entidad.TipoProcedimiento;
 import com.ceiba.factura.comando.ComandoSolicitudAgendar;
 
+import java.math.BigDecimal;
+
 public class ComandoAgendarTestDataBuilder {
 
     private Long id_paciente;
     private String tipo_procedimiento;
+
+    private double valor;
 
 
     public ComandoAgendarTestDataBuilder() {
@@ -17,7 +21,7 @@ public class ComandoAgendarTestDataBuilder {
     public ComandoAgendarTestDataBuilder crearPorDefecto() {
         this.id_paciente = 1092l;
         this.tipo_procedimiento = TipoProcedimiento.LIMPIEZA.toString();
-
+        this.valor = 55000;
         return this;
 
     }
@@ -29,6 +33,6 @@ public class ComandoAgendarTestDataBuilder {
     }
 
     public ComandoSolicitudAgendar build() {
-        return new ComandoSolicitudAgendar(this.id_paciente, this.tipo_procedimiento);
+        return new ComandoSolicitudAgendar(this.id_paciente, this.tipo_procedimiento, this.valor);
     }
 }

@@ -19,6 +19,7 @@ public class CitaTest {
         var cita = new CitaTestDataBuilder()
                 .conPaciente(paciente)
                         .conTipoProcedimiento(TipoProcedimiento.CALZA_DE_MUELA)
+                            .conValorPagado(55000)
                                 .crear();
 
         Assertions.assertEquals(1091L, cita.getIdPaciente());
@@ -35,6 +36,7 @@ public class CitaTest {
         var cita = new CitaTestDataBuilder()
                 .conPaciente(paciente)
                 .conTipoProcedimiento(TipoProcedimiento.LIMPIEZA)
+                .conValorPagado(55000)
                 .crear();
 
         Assertions.assertEquals(1091L, cita.getIdPaciente());
@@ -51,26 +53,11 @@ public class CitaTest {
         var cita = new CitaTestDataBuilder()
                 .conPaciente(paciente)
                 .conTipoProcedimiento(TipoProcedimiento.BLANQUEAMIENTO_DENTAL)
+                .conValorPagado(55000)
                 .crear();
 
         Assertions.assertEquals(1091L, cita.getIdPaciente());
         Assertions.assertEquals(TipoProcedimiento.BLANQUEAMIENTO_DENTAL.toString(), cita.getTipoProcedimiento().toString());
-
-    }
-
-    @Test
-    void deberiaCrearLaCitaCorrectamenteConTipoProcedimientoMantenimientoDeBracketsSinHistoriasRegistradas() {
-
-        Paciente paciente = new PacienteTestDataBuilder()
-                .conPacientePorDefecto().reconstruir();
-
-        var cita = new CitaTestDataBuilder()
-                .conPaciente(paciente)
-                .conTipoProcedimiento(TipoProcedimiento.MANTENIMIENTO_DE_BRACKETS)
-                .crear();
-
-        Assertions.assertEquals(1091L, cita.getIdPaciente());
-        Assertions.assertEquals(TipoProcedimiento.MANTENIMIENTO_DE_BRACKETS.toString(), cita.getTipoProcedimiento().toString());
 
     }
 
@@ -83,7 +70,7 @@ public class CitaTest {
         var cita = new CitaTestDataBuilder()
                 .conPaciente(paciente)
                 .conTipoProcedimiento(TipoProcedimiento.CALZA_DE_MUELA)
-                .conEstado()
+                .conValorPagado(55000)
                 .crear();
 
         Assertions.assertEquals(1091L, cita.getIdPaciente());
@@ -96,8 +83,21 @@ public class CitaTest {
 
         BasePrueba.assertThrows(()->new CitaTestDataBuilder()
                         .conTipoProcedimiento(TipoProcedimiento.LIMPIEZA)
+                        .conValorPagado(55000)
                         .crear(),
                 ExcepcionValorObligatorio.class,
                 "El paciente no existe");
+    }
+    @Test
+    void deberiaLanzarExcepcionDebeIngresarUnMonto() {
+        Paciente paciente = new PacienteTestDataBuilder()
+                .conPacientePorDefecto().reconstruir();
+
+        BasePrueba.assertThrows(()->new CitaTestDataBuilder()
+                        .conPaciente(paciente)
+                        .conTipoProcedimiento(TipoProcedimiento.LIMPIEZA)
+                        .crear(),
+                ExcepcionValorObligatorio.class,
+                "Debe ingresar el monto de la cita");
     }
 }
