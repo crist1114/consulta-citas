@@ -6,6 +6,7 @@ import com.ceiba.paciente.puerto.repositorio.RepositorioPaciente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -21,9 +22,9 @@ public class MapeoCita implements RowMapper<Cita>, MapperResult {
         var tipoProcedimiento = rs.getString("tipo_procedimiento");
         var fecha = rs.getDate("fecha").toLocalDate();
         var estado = rs.getString("estado");
-        var valor = rs.getString("valor");
+        var valor = rs.getBigDecimal("valor");
 
 
-        return Cita.reconstruir(id,idPaciente,tipoProcedimiento,fecha,estado);
+        return Cita.reconstruir(id,idPaciente,tipoProcedimiento,fecha,estado,valor);
     }
 }

@@ -33,12 +33,13 @@ public final class Cita {
         this.valor = valor;
     }
 
-    private Cita(Long id, Long idPaciente, String tipoProcedimiento, LocalDate fecha, String estado) {
+    private Cita(Long id, Long idPaciente, String tipoProcedimiento, LocalDate fecha, String estado, BigDecimal valor) {
         this.id = id;
         this.idPaciente = idPaciente;
         this.tipoProcedimiento = TipoProcedimiento.valueOf(tipoProcedimiento);
         this.fecha = fecha;
         this.estado = EstadoCita.valueOf(estado);
+        this.valor = valor;
     }
 
     public static Cita crear(SolicitudAgendar solicitudAgendar) {
@@ -52,7 +53,7 @@ public final class Cita {
         return new Cita(solicitudAgendar.getPaciente().getId(), solicitudAgendar.getTipoProcedimiento(), solicitudAgendar.getValor());
     }
 
-    public static Cita reconstruir(Long id, Long idPaciente, String tipoProcedimiento, LocalDate fecha, String estado){
+    public static Cita reconstruir(Long id, Long idPaciente, String tipoProcedimiento, LocalDate fecha, String estado, BigDecimal valor){
 
 
         ValidadorArgumento.validarObligatorio(id, "El id no es valido");
@@ -60,8 +61,10 @@ public final class Cita {
         ValidadorArgumento.validarObligatorio(tipoProcedimiento, "El tipo procedimiento es obligatorio" );
         ValidadorArgumento.validarObligatorio(fecha, "La fecha es obligatoria");
         ValidadorArgumento.validarObligatorio(estado, "el estado es obligatorio");
+        ValidadorArgumento.validarObligatorio(valor,"Debe ingresar el monto de la cita");
 
-        return new Cita(id,idPaciente,tipoProcedimiento,fecha,estado);
+
+        return new Cita(id,idPaciente,tipoProcedimiento,fecha,estado,valor);
     }
 
     public boolean historiaValidaParaCitaMantenimiento(Object fechaUltimaHistoria){
@@ -75,15 +78,10 @@ public final class Cita {
         return meses<TIEMPO_MAX_VALIDO_HISTORIA_PARA_CITA_MANTENIMIENTO;
     }
 
-    public boolean valorCitaValido(Long valorPagado, String tipoPaciente){
-        return tipoPaciente.equals(TipoPaciente.CONTRIBUTIVO.toString()) && valorPagado>=VALOR_TIPO_CONTRIBUTIVO
-       || tipoPaciente.equals(TipoPaciente.SUBSIDIADO.toString()) && valorPagado>=VALOR_TIPO_SUBSIDIADO;
-    }
-
     public BigDecimal getValorPorTipo(String tipoProcedimiento) {
         return tipoProcedimiento.equals(TipoPaciente.CONTRIBUTIVO.toString())
-                ? new BigDecimal(VALOR_TIPO_CONTRIBUTIVO)
-                : new BigDecimal(VALOR_TIPO_SUBSIDIADO);
+                ? BigDecimal.valueOf(VALOR_TIPO_CONTRIBUTIVO)
+                : BigDecimal.valueOf(VALOR_TIPO_SUBSIDIADO);
     }
 
     public Long getId() {

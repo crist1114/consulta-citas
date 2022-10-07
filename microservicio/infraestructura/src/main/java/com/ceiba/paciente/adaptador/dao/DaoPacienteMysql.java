@@ -13,14 +13,11 @@ public class DaoPacienteMysql implements DaoPaciente {
 
     private final CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate;
 
-    private final MapeoPacienteResumen mapeoPacienteResumen;
-
     @SqlStatement(namespace = "paciente", value="obtenerpacienteporid")
     private static String sqlObtenerPaciente;
 
-    public DaoPacienteMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate, MapeoPacienteResumen mapeoPacienteResumen) {
+    public DaoPacienteMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate) {
         this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
-        this.mapeoPacienteResumen = mapeoPacienteResumen;
     }
 
     @Override
