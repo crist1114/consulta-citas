@@ -3,22 +3,13 @@ import com.ceiba.dominio.ValidadorArgumento;
 import com.ceiba.paciente.entidad.TipoPaciente;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.List;
 
 public final class Cita {
 
     public static final double VALOR_TIPO_CONTRIBUTIVO = 55000;
     public static final double VALOR_TIPO_SUBSIDIADO = 3500;
-    private final static int CANTIDAD_DIAS_HABILES = 5;
-    private final static int SABADO = 7;
-    private final static int DOMINGO = 1;
     private static final int TIEMPO_MAX_VALIDO_HISTORIA_PARA_CITA_MANTENIMIENTO = 3;
 
 
@@ -79,6 +70,10 @@ public final class Cita {
         ValidadorArgumento.validarObligatorio(hora,"Debe ingresar una hora");
 
         return new Cita(id,idPaciente,tipoProcedimiento,fecha,hora,estado,valor);
+    }
+
+    public void cancelar() {
+        this.estado = EstadoCita.CANCELADA;
     }
 
     public boolean historiaValidaParaCitaMantenimiento(Object fechaUltimaHistoria){

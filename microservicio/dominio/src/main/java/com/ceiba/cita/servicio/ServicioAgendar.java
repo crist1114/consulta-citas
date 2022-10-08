@@ -11,10 +11,10 @@ import java.time.LocalTime;
 
 public class ServicioAgendar {
 
-    private final static int SABADO = 6;
-    private final static int DOMINGO = 7;
-    private final static int HORA_INICIO = 7;
-    private final static int HORA_FIN = 16;
+    private final int SABADO = 6;
+    private final int DOMINGO = 7;
+    private final int HORA_INICIO = 7;
+    private final int HORA_FIN = 16;
     private static final int CANTIDAD_DIAS_HABILES = 5;
     private final RepositorioCita repositorioCita;
     private final RepositorioHistoria repositorioHistoria;
@@ -28,10 +28,10 @@ public class ServicioAgendar {
 
         var cita = Cita.crear(solicitudAgendar);
 
-        BigDecimal valorCita = cita.getValorPorTipo(solicitudAgendar.getTipoPaciente());
-        elMontoEsMenor(valorCita, solicitudAgendar.getValor());
         pacienteYaTieneCita(cita.getIdPaciente());
         citaNoValidaParaMantenimiento(cita);
+        BigDecimal valorCita = cita.getValorPorTipo(solicitudAgendar.getTipoPaciente());
+        elMontoEsMenor(valorCita, solicitudAgendar.getValor());
         validarDiaHabil(solicitudAgendar.getFecha());
         validarHoraHabil(solicitudAgendar.getHora());
         validarCupo(solicitudAgendar.getFecha(), solicitudAgendar.getHora());

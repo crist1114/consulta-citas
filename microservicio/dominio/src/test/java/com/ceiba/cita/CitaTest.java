@@ -114,4 +114,6 @@ public class CitaTest {
                 ExcepcionValorObligatorio.class,
                 "Debe ingresar el monto de la cita");
     }
+
+
 }

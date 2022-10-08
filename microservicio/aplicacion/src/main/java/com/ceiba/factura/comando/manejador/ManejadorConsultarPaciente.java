@@ -1,6 +1,6 @@
 package com.ceiba.factura.comando.manejador;
 
-import com.ceiba.paciente.entidad.ResumenPacienteDTO;
+import com.ceiba.paciente.dto.ResumenPacienteDTO;
 import com.ceiba.paciente.puerto.dao.DaoPaciente;
 import org.springframework.stereotype.Component;
 

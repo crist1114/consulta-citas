@@ -1,7 +1,7 @@
 package com.ceiba.paciente.controlador;
 
 import com.ceiba.factura.comando.manejador.ManejadorConsultarPaciente;
-import com.ceiba.paciente.entidad.ResumenPacienteDTO;
+import com.ceiba.paciente.dto.ResumenPacienteDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -20,13 +20,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ComandoControladorPaciente.class)
 @ContextConfiguration(classes = ApplicationMock.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class ComandoConsultaPacienteTest {
+public class ConsultaControladorPacienteTest {
 
     @Autowired
     private MockMvc mocMvc;
 
     @Test
-    void consultarPaciente() throws Exception {
+    void deberiaConsultarPaciente() throws Exception {
 
         mocMvc.perform(get("/paciente/"+1092)
                         .contentType(MediaType.APPLICATION_JSON))

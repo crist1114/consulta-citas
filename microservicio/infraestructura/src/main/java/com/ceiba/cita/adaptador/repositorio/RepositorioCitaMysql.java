@@ -11,8 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Hashtable;
-import java.util.List;
 
 @Repository
 public class RepositorioCitaMysql implements RepositorioCita {
@@ -33,6 +31,9 @@ public class RepositorioCitaMysql implements RepositorioCita {
     private static String sqlObtenerCitaPorFechaYHora;
     @SqlStatement(namespace = "cita", value = "obtenercita")
     private static String sqlObtenerCita;
+
+    @SqlStatement(namespace = "cita", value = "actualizarestado")
+    private static String sqlActualizarEstado;
 
 
     @Override
@@ -81,6 +82,15 @@ public class RepositorioCitaMysql implements RepositorioCita {
 
         return EjecucionBaseDeDatos.obtenerUnObjetoONull(() -> this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
                 .queryForObject(sqlObtenerCitaPorFechaYHora, paramSource, new MapeoCita()));
+
+    }
+
+    @Override
+    public void actualizarEstado(Cita cita) {
+        MapSqlParameterSource paramSource = new MapSqlParameterSource();
+        paramSource.addValue("id", cita.getId());
+        paramSource.addValue("estado", cita.getEstado().toString());
+        this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().update(sqlActualizarEstado, paramSource);
 
     }
 }
