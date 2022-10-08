@@ -15,7 +15,7 @@ public class DaoCitaMysql implements DaoCita {
     private final CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate;
 
     @SqlStatement(namespace = "cita", value = "obtenercitanoatendidapaciente")
-    private String sqlObtenerCitaNoAtendidaPaciente;
+    private static String sqlObtenerCitaNoAtendidaPaciente;
 
     public DaoCitaMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate) {
         this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;

@@ -11,10 +11,10 @@ import java.time.LocalTime;
 
 public class ServicioAgendar {
 
-    private final int SABADO = 6;
-    private final int DOMINGO = 7;
-    private final int HORA_INICIO = 7;
-    private final int HORA_FIN = 16;
+    private static final int SABADO = 6;
+    private static final int DOMINGO = 7;
+    private static final int HORA_INICIO = 7;
+    private static final int HORA_FIN = 16;
     private static final int CANTIDAD_DIAS_HABILES = 5;
     private final RepositorioCita repositorioCita;
     private final RepositorioHistoria repositorioHistoria;

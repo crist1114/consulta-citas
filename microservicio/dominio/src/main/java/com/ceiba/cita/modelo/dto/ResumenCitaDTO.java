@@ -1,7 +1,4 @@
 package com.ceiba.cita.modelo.dto;
-
-import com.ceiba.cita.modelo.entidad.EstadoCita;
-import com.ceiba.cita.modelo.entidad.TipoProcedimiento;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
