@@ -20,9 +20,9 @@ public class ConsultaControladorCita {
         this.manejadorConsultarCita = manejadorConsultarCita;
     }
 
-    @GetMapping("/consultar-cita-paciente/{id_paciente}")
+    @GetMapping("/consultar-cita-paciente/{idPaciente}")
     @Operation(summary = "consultar", description = "Metodo utilizado para consultar la cita de un paciente")
-    public ResumenCitaDTO obtenerPaciente(@PathVariable Long idPaciente) {
+    public ResumenCitaDTO obtenerCitaNoAtendidaPaciente(@PathVariable Long idPaciente) {
 
         return manejadorConsultarCita.ejecutar(idPaciente);
     }
