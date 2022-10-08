@@ -23,6 +23,8 @@ public class FabricaSolicitudAgendar {
         return new SolicitudAgendar(
                     repositorioPaciente.obtener(comandoSolicitudAgendar.getIdPaciente()),
                     comandoSolicitudAgendar.getTipoProcedimiento(),
+                    comandoSolicitudAgendar.getFecha(),
+                    comandoSolicitudAgendar.getHora(),
                     new BigDecimal(comandoSolicitudAgendar.getValor())
                 );
     }

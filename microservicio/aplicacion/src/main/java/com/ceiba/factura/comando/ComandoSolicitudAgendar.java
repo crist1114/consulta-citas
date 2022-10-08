@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -15,6 +16,8 @@ public class ComandoSolicitudAgendar {
 
     private Long idPaciente;
     private String tipoProcedimiento;
+    private LocalDate fecha;
+    private LocalTime hora;
     private double valor;
 
 }

@@ -1,16 +1,26 @@
 package com.ceiba.cita.modelo.entidad;
 import com.ceiba.dominio.ValidadorArgumento;
 import com.ceiba.paciente.entidad.TipoPaciente;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Hashtable;
+import java.util.List;
 
 public final class Cita {
 
     public static final double VALOR_TIPO_CONTRIBUTIVO = 55000;
-
     public static final double VALOR_TIPO_SUBSIDIADO = 3500;
+    private final static int CANTIDAD_DIAS_HABILES = 5;
+    private final static int SABADO = 7;
+    private final static int DOMINGO = 1;
+    private static final int TIEMPO_MAX_VALIDO_HISTORIA_PARA_CITA_MANTENIMIENTO = 3;
+
 
     private Long id;
 
@@ -20,24 +30,26 @@ public final class Cita {
 
     private LocalDate fecha;
 
+    private LocalTime hora;
     private EstadoCita estado;
 
     private BigDecimal valor;
-    private static final int TIEMPO_MAX_VALIDO_HISTORIA_PARA_CITA_MANTENIMIENTO = 3;
 
-    private Cita(Long idPaciente, String tipoProcedimiento, BigDecimal valor){
+    private Cita(Long idPaciente, String tipoProcedimiento, BigDecimal valor, LocalDate fecha, LocalTime hora){
         this.idPaciente = idPaciente;
         this.tipoProcedimiento = TipoProcedimiento.valueOf(tipoProcedimiento);
-        this.fecha = LocalDate.now();
+        this.fecha = fecha;
         this.estado = EstadoCita.NO_ATENDIDA;
         this.valor = valor;
+        this.hora = hora;
     }
 
-    private Cita(Long id, Long idPaciente, String tipoProcedimiento, LocalDate fecha, String estado, BigDecimal valor) {
+    private Cita(Long id, Long idPaciente, String tipoProcedimiento, LocalDate fecha, LocalTime hora, String estado, BigDecimal valor) {
         this.id = id;
         this.idPaciente = idPaciente;
         this.tipoProcedimiento = TipoProcedimiento.valueOf(tipoProcedimiento);
         this.fecha = fecha;
+        this.hora = hora;
         this.estado = EstadoCita.valueOf(estado);
         this.valor = valor;
     }
@@ -49,11 +61,13 @@ public final class Cita {
         ValidadorArgumento.validarValido(solicitudAgendar.getTipoProcedimiento(), TipoProcedimiento.class,"El tipo procedimiento no es valido" );
         ValidadorArgumento.validarObligatorio(solicitudAgendar.getValor(),"Debe ingresar el monto de la cita");
         ValidadorArgumento.validarPositivo(solicitudAgendar.getValor().doubleValue(),"No se permiten valores negativos");
+        ValidadorArgumento.validarObligatorio(solicitudAgendar.getFecha(),"Debe ingresar una fecha");
+        ValidadorArgumento.validarObligatorio(solicitudAgendar.getHora(),"Debe ingresar una hora");
 
-        return new Cita(solicitudAgendar.getPaciente().getId(), solicitudAgendar.getTipoProcedimiento(), solicitudAgendar.getValor());
+        return new Cita(solicitudAgendar.getPaciente().getId(), solicitudAgendar.getTipoProcedimiento(), solicitudAgendar.getValor(), solicitudAgendar.getFecha(), solicitudAgendar.getHora());
     }
 
-    public static Cita reconstruir(Long id, Long idPaciente, String tipoProcedimiento, LocalDate fecha, String estado, BigDecimal valor){
+    public static Cita reconstruir(Long id, Long idPaciente, String tipoProcedimiento, LocalDate fecha, LocalTime hora, String estado, BigDecimal valor){
 
 
         ValidadorArgumento.validarObligatorio(id, "El id no es valido");
@@ -62,9 +76,9 @@ public final class Cita {
         ValidadorArgumento.validarObligatorio(fecha, "La fecha es obligatoria");
         ValidadorArgumento.validarObligatorio(estado, "el estado es obligatorio");
         ValidadorArgumento.validarObligatorio(valor,"Debe ingresar el monto de la cita");
+        ValidadorArgumento.validarObligatorio(hora,"Debe ingresar una hora");
 
-
-        return new Cita(id,idPaciente,tipoProcedimiento,fecha,estado,valor);
+        return new Cita(id,idPaciente,tipoProcedimiento,fecha,hora,estado,valor);
     }
 
     public boolean historiaValidaParaCitaMantenimiento(Object fechaUltimaHistoria){
@@ -91,7 +105,6 @@ public final class Cita {
     public TipoProcedimiento getTipoProcedimiento() {
         return tipoProcedimiento;
     }
-
     public LocalDate getFecha() {
         return fecha;
     }
@@ -107,6 +120,13 @@ public final class Cita {
     public boolean esMantenimientoDeBrackets(){
         return this.tipoProcedimiento.equals(TipoProcedimiento.MANTENIMIENTO_DE_BRACKETS);
     }
+    public LocalTime getHora() {
+        return hora;
+    }
+    public int getDia(){
+        return this.fecha.getDayOfWeek().getValue();
+    }
+    public int getSoloHora(){return this.getHora().getHour();}
 
     public BigDecimal getValor() {
         return valor;

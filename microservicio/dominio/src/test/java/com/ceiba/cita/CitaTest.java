@@ -8,6 +8,10 @@ import com.ceiba.paciente.PacienteTestDataBuilder;
 import com.ceiba.paciente.entidad.Paciente;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class CitaTest {
 
     @Test
@@ -19,6 +23,8 @@ public class CitaTest {
         var cita = new CitaTestDataBuilder()
                 .conPaciente(paciente)
                         .conTipoProcedimiento(TipoProcedimiento.CALZA_DE_MUELA)
+                            .conFecha(LocalDate.now().plusDays(2))
+                            .conHora(LocalTime.of(15, 00,00))
                             .conValorPagado(55000)
                                 .crear();
 
@@ -36,6 +42,8 @@ public class CitaTest {
         var cita = new CitaTestDataBuilder()
                 .conPaciente(paciente)
                 .conTipoProcedimiento(TipoProcedimiento.LIMPIEZA)
+                .conFecha(LocalDate.now().plusDays(2))
+                .conHora(LocalTime.of(15, 00,00))
                 .conValorPagado(55000)
                 .crear();
 
@@ -53,6 +61,8 @@ public class CitaTest {
         var cita = new CitaTestDataBuilder()
                 .conPaciente(paciente)
                 .conTipoProcedimiento(TipoProcedimiento.BLANQUEAMIENTO_DENTAL)
+                .conFecha(LocalDate.now().plusDays(2))
+                .conHora(LocalTime.of(15, 00,00))
                 .conValorPagado(55000)
                 .crear();
 
@@ -70,6 +80,8 @@ public class CitaTest {
         var cita = new CitaTestDataBuilder()
                 .conPaciente(paciente)
                 .conTipoProcedimiento(TipoProcedimiento.CALZA_DE_MUELA)
+                .conFecha(LocalDate.now().plusDays(2))
+                .conHora(LocalTime.of(15, 00,00))
                 .conValorPagado(55000)
                 .crear();
 
@@ -83,6 +95,8 @@ public class CitaTest {
 
         BasePrueba.assertThrows(()->new CitaTestDataBuilder()
                         .conTipoProcedimiento(TipoProcedimiento.LIMPIEZA)
+                        .conFecha(LocalDate.now().plusDays(2))
+                        .conHora(LocalTime.of(15, 00,00))
                         .conValorPagado(55000)
                         .crear(),
                 ExcepcionValorObligatorio.class,

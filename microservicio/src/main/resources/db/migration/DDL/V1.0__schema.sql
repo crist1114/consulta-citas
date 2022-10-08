@@ -18,6 +18,7 @@ create table cita (
  id_paciente int(11) not null,
  tipo_procedimiento varchar(100) not null,
  fecha DATE not null,
+ hora TIME not null,
  estado varchar(50),
  valor DECIMAL(10,2) not null,
  primary key (id)

@@ -17,6 +17,7 @@ import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class ServicioAgendarTest {
 
@@ -31,6 +32,8 @@ public class ServicioAgendarTest {
         var solicitudAgendar = new SolicitudAgendarTestDataBuilder()
                 .conPaciente(paciente)
                 .conTipoProcedimiento(TipoProcedimiento.LIMPIEZA.toString())
+                .conFecha(LocalDate.now().plusDays(2))
+                .conHora(LocalTime.of(15, 00,00))
                 .conValorPagado(VALOR_CONTRIBUTIVO)
                 .build();
 
@@ -62,6 +65,8 @@ public class ServicioAgendarTest {
         SolicitudAgendar solicitud = new SolicitudAgendarTestDataBuilder()
                 .conPaciente(paciente)
                 .conTipoProcedimiento(TipoProcedimiento.MANTENIMIENTO_DE_BRACKETS.toString())
+                .conFecha(LocalDate.now().plusDays(2))
+                .conHora(LocalTime.of(15, 00,00))
                 .conValorPagado(new BigDecimal(55000))
                 .build();
 
@@ -90,6 +95,8 @@ public class ServicioAgendarTest {
         SolicitudAgendar solicitud = new SolicitudAgendarTestDataBuilder()
                 .conPaciente(paciente)
                 .conTipoProcedimiento(TipoProcedimiento.MANTENIMIENTO_DE_BRACKETS.toString())
+                .conFecha(LocalDate.now().plusDays(2))
+                .conHora(LocalTime.of(15, 00,00))
                 .conValorPagado(new BigDecimal(55000))
                 .build();
 

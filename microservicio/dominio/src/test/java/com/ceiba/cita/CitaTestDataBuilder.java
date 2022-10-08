@@ -3,12 +3,12 @@ package com.ceiba.cita;
 import com.ceiba.cita.modelo.entidad.Cita;
 import com.ceiba.cita.modelo.entidad.EstadoCita;
 import com.ceiba.cita.modelo.entidad.TipoProcedimiento;
-import com.ceiba.paciente.PacienteTest;
 import com.ceiba.paciente.PacienteTestDataBuilder;
 import com.ceiba.paciente.entidad.Paciente;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class CitaTestDataBuilder {
 
@@ -19,6 +19,7 @@ public class CitaTestDataBuilder {
     private TipoProcedimiento tipoProcedimiento;
 
     private LocalDate fecha;
+    private LocalTime hora;
 
     private EstadoCita estado;
 
@@ -56,10 +57,22 @@ public class CitaTestDataBuilder {
         return this;
     }
 
+    public CitaTestDataBuilder conFecha(LocalDate fecha){
+        this.fecha = fecha;
+        return this;
+    }
+
+    public CitaTestDataBuilder conHora(LocalTime hora){
+        this.hora = hora;
+        return this;
+    }
+
     public Cita crear() {
         return Cita.crear( new SolicitudAgendarTestDataBuilder()
                 .conPaciente(paciente)
                 .conTipoProcedimiento(tipoProcedimiento.toString())
+                        .conFecha(fecha)
+                        .conHora(hora)
                         .conValorPagado(valorPagado)
                 .build()
                 );

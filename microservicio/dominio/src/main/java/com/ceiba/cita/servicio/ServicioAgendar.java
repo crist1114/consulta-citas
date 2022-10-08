@@ -1,23 +1,22 @@
 package com.ceiba.cita.servicio;
 
-
-import com.ceiba.cita.modelo.entidad.Cita;
-import com.ceiba.cita.modelo.entidad.SolicitudAgendar;
-import com.ceiba.cita.modelo.entidad.TipoProcedimiento;
+import com.ceiba.cita.modelo.entidad.*;
 import com.ceiba.cita.puerto.repositorio.RepositorioCita;
-import com.ceiba.dominio.ValidadorArgumento;
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.historia.puerto.RepositorioHistoria;
-
 import java.math.BigDecimal;
-import java.sql.SQLOutput;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 public class ServicioAgendar {
 
-
+    private final static int SABADO = 6;
+    private final static int DOMINGO = 7;
+    private final static int HORA_INICIO = 7;
+    private final static int HORA_FIN = 16;
+    private static final int CANTIDAD_DIAS_HABILES = 5;
     private final RepositorioCita repositorioCita;
-
     private final RepositorioHistoria repositorioHistoria;
 
     public ServicioAgendar(RepositorioCita repositorioCita, RepositorioHistoria repositorioHistoria) {
@@ -28,13 +27,56 @@ public class ServicioAgendar {
     public Long ejecutar(SolicitudAgendar solicitudAgendar) {
 
         var cita = Cita.crear(solicitudAgendar);
-        BigDecimal valorCita = cita.getValorPorTipo(solicitudAgendar.getTipoPaciente());
 
+        BigDecimal valorCita = cita.getValorPorTipo(solicitudAgendar.getTipoPaciente());
         elMontoEsMenor(valorCita, solicitudAgendar.getValor());
         pacienteYaTieneCita(cita.getIdPaciente());
         citaNoValidaParaMantenimiento(cita);
+        validarDiaHabil(solicitudAgendar.getFecha());
+        validarHoraHabil(solicitudAgendar.getHora());
+        validarCupo(solicitudAgendar.getFecha(), solicitudAgendar.getHora());
 
         return repositorioCita.guardar(cita);
+    }
+
+    private void validarHoraHabil(LocalTime hora) {
+        if(hora.getHour() < HORA_INICIO || hora.getHour() > HORA_FIN)
+            throw new ExcepcionValorInvalido("Hora no se encuentra dentro del horario laboral");
+    }
+
+    private void validarDiaHabil(LocalDate fecha) {
+
+        if(fecha.getDayOfWeek().getValue() == SABADO || fecha.getDayOfWeek().getValue() == DOMINGO)
+            throw new ExcepcionValorInvalido("Dia no laboral");
+
+        if(!estaDentroDeProximosCincoDias(fecha))
+            throw new ExcepcionValorInvalido("Debe seleccionar un dia habil dentro de los proximos 5 dias");
+    }
+
+    private boolean estaDentroDeProximosCincoDias(LocalDate fecha) {
+        int contadorDias=0;
+        LocalDate dia = LocalDate.now();
+
+        while(contadorDias < CANTIDAD_DIAS_HABILES) {
+
+            int diaMes = dia.getDayOfMonth();
+            int posicionDia = dia.getDayOfWeek().getValue();
+
+            if(posicionDia != DOMINGO && posicionDia != SABADO) {
+                if(fecha.getDayOfMonth() == diaMes){
+                    return true;
+                }
+                contadorDias++;
+            }
+            dia = dia.plusDays(1);
+        }
+        return false;
+    }
+
+    private void validarCupo(LocalDate fecha, LocalTime hora){
+        if(repositorioCita.obtenerCitaPorFechaYHora(fecha, hora) != null){
+            throw new ExcepcionValorInvalido("Ya existe una cita a esa hora");
+        }
     }
 
     private void elMontoEsMenor(BigDecimal valorCita, BigDecimal valorPagado) {

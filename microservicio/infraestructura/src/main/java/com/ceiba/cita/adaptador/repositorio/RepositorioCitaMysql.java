@@ -9,6 +9,9 @@ import com.ceiba.infraestructura.jdbc.sqlstatement.SqlStatement;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Hashtable;
 import java.util.List;
 
 @Repository
@@ -23,11 +26,12 @@ public class RepositorioCitaMysql implements RepositorioCita {
 
     @SqlStatement(namespace = "cita", value = "guardarcita")
     private static String sqlGuardar;
+    @SqlStatement(namespace = "cita", value = "obteneragendadaspaciente")
+    private static String sqlObtenerAgendadasPaciente;
 
-    @SqlStatement(namespace = "cita", value = "obteneragendadas")
-    private static String sqlObtenerAgendadas;
-
-    @SqlStatement(namespace = "cita", value = "obtenercita.sql")
+    @SqlStatement(namespace = "cita", value = "obtenercitaporfechayhora")
+    private static String sqlObtenerCitaPorFechaYHora;
+    @SqlStatement(namespace = "cita", value = "obtenercita")
     private static String sqlObtenerCita;
 
 
@@ -52,6 +56,7 @@ public class RepositorioCitaMysql implements RepositorioCita {
         nombreParam.addValue("fecha", cita.getFecha());
         nombreParam.addValue("estado", cita.getEstado().toString());
         nombreParam.addValue("valor", cita.getValor());
+        nombreParam.addValue("hora", cita.getHora());
 
         return this.customNamedParameterJdbcTemplate.crear(nombreParam, sqlGuardar);
     }
@@ -64,7 +69,18 @@ public class RepositorioCitaMysql implements RepositorioCita {
         paramSource.addValue("id_paciente", idPaciente);
 
        return EjecucionBaseDeDatos.obtenerUnObjetoONull(() -> this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
-                .queryForObject(sqlObtenerAgendadas, paramSource, new MapeoCitaResumen()));
+                .queryForObject(sqlObtenerAgendadasPaciente, paramSource, new MapeoCitaResumen()));
+
+    }
+    @Override
+    public Cita obtenerCitaPorFechaYHora(LocalDate fecha, LocalTime hora) {
+        MapSqlParameterSource paramSource = new MapSqlParameterSource();
+
+        paramSource.addValue("fecha", fecha);
+        paramSource.addValue("hora", hora);
+
+        return EjecucionBaseDeDatos.obtenerUnObjetoONull(() -> this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
+                .queryForObject(sqlObtenerCitaPorFechaYHora, paramSource, new MapeoCita()));
 
     }
 }

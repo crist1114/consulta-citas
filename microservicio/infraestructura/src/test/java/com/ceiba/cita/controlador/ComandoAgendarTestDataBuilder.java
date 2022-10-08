@@ -5,12 +5,15 @@ import com.ceiba.cita.modelo.entidad.TipoProcedimiento;
 import com.ceiba.factura.comando.ComandoSolicitudAgendar;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class ComandoAgendarTestDataBuilder {
 
     private Long id_paciente;
     private String tipo_procedimiento;
-
+    private LocalDate fecha;
+    private LocalTime hora;
     private double valor;
 
 
@@ -32,7 +35,17 @@ public class ComandoAgendarTestDataBuilder {
 
     }
 
-    public ComandoSolicitudAgendar build() {
-        return new ComandoSolicitudAgendar(this.id_paciente, this.tipo_procedimiento, this.valor);
+    public ComandoAgendarTestDataBuilder conFecha(LocalDate fecha) {
+        this.fecha = fecha;
+        return this;
     }
+    public ComandoAgendarTestDataBuilder conHora(LocalTime hora) {
+        this.hora = hora;
+        return this;
+    }
+
+    public ComandoSolicitudAgendar build() {
+        return new ComandoSolicitudAgendar(this.id_paciente, this.tipo_procedimiento,this.fecha,this.hora, this.valor);
+    }
+
 }

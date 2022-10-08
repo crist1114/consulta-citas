@@ -17,6 +17,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 @ExtendWith(SpringExtension.class)
@@ -40,6 +43,8 @@ public class ComandoControladorCitaTest {
 
         ComandoSolicitudAgendar comandoAgendarTestDataBuilder = new ComandoAgendarTestDataBuilder()
                 .crearPorDefecto()
+                .conFecha(LocalDate.now().plusDays(2))
+                .conHora(LocalTime.of(15, 00,00))
                 .conIdPaciente(1093l)
                 .build();
 
@@ -65,6 +70,8 @@ public class ComandoControladorCitaTest {
 
         ComandoSolicitudAgendar comandoAgendarTestDataBuilder = new ComandoAgendarTestDataBuilder()
                 .crearPorDefecto()
+                .conFecha(LocalDate.now().plusDays(2))
+                .conHora(LocalTime.of(15, 00,00))
                 .conIdPaciente(1090l)
                 .build();
 
