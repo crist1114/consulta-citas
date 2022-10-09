@@ -33,9 +33,9 @@ public class ComandoControladorCita {
         return this.manejadorAgendar.ejecutar(comandoSolicitudAgendar);
     }
 
-    @PostMapping("cancelar/{id-cita}")
+    @PostMapping("cancelar/{id_cita}")
     @Operation(summary = "Anular", description = "Metodo utilizado para cancelar una cita")
-    public void anular(@PathVariable("id-cita") Long idCita) {
+    public void anular(@PathVariable("id_cita") Long idCita) {
         this.manejadorCancelar.ejecutar(new ComandoCancelar(idCita));
     }
 }

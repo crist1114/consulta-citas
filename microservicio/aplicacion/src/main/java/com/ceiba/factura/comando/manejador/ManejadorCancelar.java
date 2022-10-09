@@ -1,5 +1,6 @@
 package com.ceiba.factura.comando.manejador;
 
+import com.ceiba.ComandoRespuesta;
 import com.ceiba.cita.puerto.repositorio.RepositorioCita;
 import com.ceiba.cita.servicio.ServicioCancelar;
 import com.ceiba.factura.comando.ComandoCancelar;
@@ -19,9 +20,8 @@ public class ManejadorCancelar implements ManejadorComando<ComandoCancelar> {
         this.repositorioCita = repositorioCita;
     }
 
-
     @Override
     public void ejecutar(ComandoCancelar comando) {
-        servicioCancelar.ejecutar(repositorioCita.obtener(comando.getIdCita()));
+       servicioCancelar.ejecutar(repositorioCita.obtener(comando.getIdCita()));
     }
 }

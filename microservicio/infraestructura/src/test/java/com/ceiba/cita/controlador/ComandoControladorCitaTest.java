@@ -1,6 +1,7 @@
 package com.ceiba.cita.controlador;
 
 import com.ceiba.ApplicationMock;
+import com.ceiba.cita.modelo.entidad.EstadoCita;
 import com.ceiba.cita.modelo.entidad.TipoProcedimiento;
 import com.ceiba.cita.puerto.repositorio.RepositorioCita;
 import com.ceiba.factura.comando.ComandoSolicitudAgendar;
@@ -63,6 +64,18 @@ public class ComandoControladorCitaTest {
         Assertions.assertEquals(comandoAgendarTestDataBuilder.getIdPaciente(), citaGuardada.getIdPaciente());
         Assertions.assertEquals(TipoProcedimiento.LIMPIEZA.toString(), citaGuardada.getTipoProcedimiento().toString());
 
+    }
+
+    @Test
+    void cancelarCitaExitosa() throws Exception {
+
+        mocMvc.perform(post("/cita/cancelar/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        var citaCancelada = repositorioCita.obtener(1l);
+
+        Assertions.assertEquals(citaCancelada.getEstado(), EstadoCita.CANCELADA);
     }
 
     @Test
