@@ -2,7 +2,7 @@ package com.ceiba.paciente;
 
 import com.ceiba.BasePrueba;
 import com.ceiba.dominio.excepcion.ExcepcionValorObligatorio;
-import com.ceiba.paciente.entidad.TipoPaciente;
+import com.ceiba.paciente.modelo.entidad.TipoPaciente;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -1,7 +1,7 @@
 package com.ceiba.cita.controlador;
 
 import com.ceiba.cita.modelo.dto.ResumenCitaDTO;
-import com.ceiba.factura.comando.manejador.ManejadorConsultarCita;
+import com.ceiba.factura.consulta.ManejadorConsultarCita;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;

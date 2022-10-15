@@ -1,4 +1,4 @@
-package com.ceiba.paciente.entidad;
+package com.ceiba.paciente.modelo.entidad;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

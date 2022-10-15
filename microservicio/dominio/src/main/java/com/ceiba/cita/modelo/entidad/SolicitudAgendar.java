@@ -1,6 +1,6 @@
 package com.ceiba.cita.modelo.entidad;
 
-import com.ceiba.paciente.entidad.Paciente;
+import com.ceiba.paciente.modelo.entidad.Paciente;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

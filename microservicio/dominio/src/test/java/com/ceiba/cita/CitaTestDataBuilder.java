@@ -4,7 +4,7 @@ import com.ceiba.cita.modelo.entidad.Cita;
 import com.ceiba.cita.modelo.entidad.EstadoCita;
 import com.ceiba.cita.modelo.entidad.TipoProcedimiento;
 import com.ceiba.paciente.PacienteTestDataBuilder;
-import com.ceiba.paciente.entidad.Paciente;
+import com.ceiba.paciente.modelo.entidad.Paciente;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

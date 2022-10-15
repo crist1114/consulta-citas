@@ -1,7 +1,7 @@
 package com.ceiba.factura.comando.fabrica;
 
 import com.ceiba.factura.comando.ComandoSolicitudRegistrar;
-import com.ceiba.paciente.entidad.SolicitudRegistrar;
+import com.ceiba.paciente.modelo.entidad.SolicitudRegistrar;
 import org.springframework.stereotype.Component;
 
 @Component

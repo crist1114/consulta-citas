@@ -1,4 +1,4 @@
-package com.ceiba.paciente.entidad;
+package com.ceiba.paciente.modelo.entidad;
 
 import com.ceiba.dominio.ValidadorArgumento;
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;

@@ -76,6 +76,7 @@ public class ComandoControladorCitaTest {
         var citaCancelada = repositorioCita.obtener(1l);
 
         Assertions.assertEquals(citaCancelada.getEstado(), EstadoCita.CANCELADA);
+
     }
 
     @Test

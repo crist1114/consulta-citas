@@ -1,10 +1,7 @@
 package com.ceiba.cita.controlador;
-
-import com.ceiba.cita.modelo.entidad.EstadoCita;
 import com.ceiba.cita.modelo.entidad.TipoProcedimiento;
 import com.ceiba.factura.comando.ComandoSolicitudAgendar;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 

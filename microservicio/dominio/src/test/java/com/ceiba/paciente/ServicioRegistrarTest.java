@@ -2,8 +2,8 @@ package com.ceiba.paciente;
 
 import com.ceiba.BasePrueba;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
-import com.ceiba.paciente.entidad.Paciente;
-import com.ceiba.paciente.entidad.TipoPaciente;
+import com.ceiba.paciente.modelo.entidad.Paciente;
+import com.ceiba.paciente.modelo.entidad.TipoPaciente;
 import com.ceiba.paciente.puerto.repositorio.RepositorioPaciente;
 import com.ceiba.paciente.servicio.ServicioRegistrar;
 import org.junit.jupiter.api.Assertions;

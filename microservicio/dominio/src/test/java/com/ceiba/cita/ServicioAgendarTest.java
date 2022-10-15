@@ -9,7 +9,7 @@ import com.ceiba.cita.servicio.ServicioAgendar;
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.historia.puerto.RepositorioHistoria;
 import com.ceiba.paciente.PacienteTestDataBuilder;
-import com.ceiba.paciente.entidad.Paciente;
+import com.ceiba.paciente.modelo.entidad.Paciente;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

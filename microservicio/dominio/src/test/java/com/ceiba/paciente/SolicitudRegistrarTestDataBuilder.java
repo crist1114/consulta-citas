@@ -1,7 +1,7 @@
 package com.ceiba.paciente;
 
-import com.ceiba.paciente.entidad.SolicitudRegistrar;
-import com.ceiba.paciente.entidad.TipoPaciente;
+import com.ceiba.paciente.modelo.entidad.SolicitudRegistrar;
+import com.ceiba.paciente.modelo.entidad.TipoPaciente;
 
 public class SolicitudRegistrarTestDataBuilder {
 

@@ -1,6 +1,6 @@
 package com.ceiba.paciente.puerto.dao;
 
-import com.ceiba.paciente.dto.ResumenPacienteDTO;
+import com.ceiba.paciente.modelo.dto.ResumenPacienteDTO;
 
 public interface DaoPaciente {
 

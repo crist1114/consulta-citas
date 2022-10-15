@@ -5,7 +5,7 @@ import com.ceiba.cita.modelo.entidad.EstadoCita;
 import com.ceiba.cita.modelo.entidad.TipoProcedimiento;
 import com.ceiba.dominio.excepcion.ExcepcionValorObligatorio;
 import com.ceiba.paciente.PacienteTestDataBuilder;
-import com.ceiba.paciente.entidad.Paciente;
+import com.ceiba.paciente.modelo.entidad.Paciente;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

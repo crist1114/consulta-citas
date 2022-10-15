@@ -1,4 +1,4 @@
-package com.ceiba.factura.comando.manejador;
+package com.ceiba.factura.consulta;
 
 import com.ceiba.cita.modelo.dto.ResumenCitaDTO;
 import com.ceiba.cita.puerto.dao.DaoCita;

@@ -1,6 +1,6 @@
 package com.ceiba.paciente.puerto.repositorio;
 
-import com.ceiba.paciente.entidad.Paciente;
+import com.ceiba.paciente.modelo.entidad.Paciente;
 
 public interface RepositorioPaciente {
 

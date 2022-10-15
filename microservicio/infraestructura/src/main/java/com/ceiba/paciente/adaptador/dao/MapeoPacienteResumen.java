@@ -1,7 +1,7 @@
 package com.ceiba.paciente.adaptador.dao;
 
 import com.ceiba.infraestructura.jdbc.MapperResult;
-import com.ceiba.paciente.dto.ResumenPacienteDTO;
+import com.ceiba.paciente.modelo.dto.ResumenPacienteDTO;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 

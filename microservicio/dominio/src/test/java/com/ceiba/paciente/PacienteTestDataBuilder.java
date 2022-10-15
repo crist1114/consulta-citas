@@ -1,7 +1,7 @@
 package com.ceiba.paciente;
 
-import com.ceiba.paciente.entidad.Paciente;
-import com.ceiba.paciente.entidad.TipoPaciente;
+import com.ceiba.paciente.modelo.entidad.Paciente;
+import com.ceiba.paciente.modelo.entidad.TipoPaciente;
 
 public class PacienteTestDataBuilder {
     private Long id;

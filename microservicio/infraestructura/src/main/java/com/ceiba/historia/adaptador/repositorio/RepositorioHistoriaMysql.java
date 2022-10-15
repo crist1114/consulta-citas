@@ -1,5 +1,6 @@
 package com.ceiba.historia.adaptador.repositorio;
 
+import com.ceiba.historia.modelo.entidad.Historia;
 import com.ceiba.historia.puerto.RepositorioHistoria;
 import com.ceiba.infraestructura.jdbc.CustomNamedParameterJdbcTemplate;
 import com.ceiba.infraestructura.jdbc.EjecucionBaseDeDatos;
@@ -19,6 +20,9 @@ public class RepositorioHistoriaMysql implements RepositorioHistoria {
     @SqlStatement(namespace = "historia", value = "obtenerhistoriaporpaciente")
     private static String sqlObtenerPorId;
 
+    @SqlStatement(namespace = "historia", value = "guardarhistoria")
+    private static String sqlGuardarHistoria;
+
     public RepositorioHistoriaMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate, MapeoHistoria mapeoHistoria) {
         this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
         this.mapeoHistoria = mapeoHistoria;
@@ -33,5 +37,16 @@ public class RepositorioHistoriaMysql implements RepositorioHistoria {
         return EjecucionBaseDeDatos.obtenerUnObjetoONull(() ->
                 this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlObtenerPorId,
                         paramSource, mapeoHistoria));
+    }
+
+    @Override
+    public Long guardar(Historia historia) {
+        MapSqlParameterSource nombreParam = new MapSqlParameterSource();
+
+        nombreParam.addValue("id_paciente",historia.getIdPaciente());
+        nombreParam.addValue("fecha_emision" , historia.getFechaEmision());
+        nombreParam.addValue("ubicacion", historia.getUbicacion().toString());
+
+        return this.customNamedParameterJdbcTemplate.crear(nombreParam, sqlGuardarHistoria);
     }
 }

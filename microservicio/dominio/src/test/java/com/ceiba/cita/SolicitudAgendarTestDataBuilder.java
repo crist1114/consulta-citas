@@ -1,7 +1,7 @@
 package com.ceiba.cita;
 
 import com.ceiba.cita.modelo.entidad.SolicitudAgendar;
-import com.ceiba.paciente.entidad.Paciente;
+import com.ceiba.paciente.modelo.entidad.Paciente;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

@@ -1,6 +1,6 @@
 package com.ceiba.cita.modelo.entidad;
 import com.ceiba.dominio.ValidadorArgumento;
-import com.ceiba.paciente.entidad.TipoPaciente;
+import com.ceiba.paciente.modelo.entidad.TipoPaciente;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -66,6 +66,7 @@ public final class Cita {
         ValidadorArgumento.validarObligatorio(tipoProcedimiento, "El tipo procedimiento es obligatorio" );
         ValidadorArgumento.validarObligatorio(fecha, "La fecha es obligatoria");
         ValidadorArgumento.validarObligatorio(estado, "el estado es obligatorio");
+        ValidadorArgumento.validarValido(tipoProcedimiento, TipoProcedimiento.class,"El tipo procedimiento no es valido" );
         ValidadorArgumento.validarObligatorio(valor,"Debe ingresar el monto de la cita");
         ValidadorArgumento.validarObligatorio(hora,"Debe ingresar una hora");
 

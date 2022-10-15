@@ -4,6 +4,7 @@ import com.ceiba.cita.puerto.repositorio.RepositorioCita;
 import com.ceiba.cita.servicio.ServicioAgendar;
 import com.ceiba.cita.servicio.ServicioCancelar;
 import com.ceiba.historia.puerto.RepositorioHistoria;
+import com.ceiba.historia.servicio.ServicioRegistrarHistoria;
 import com.ceiba.paciente.puerto.repositorio.RepositorioPaciente;
 import com.ceiba.paciente.servicio.ServicioRegistrar;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +26,11 @@ public class BeanServicio {
     @Bean
     public ServicioCancelar servicioCancelar(RepositorioCita repositorioCita){
         return new ServicioCancelar(repositorioCita);
+    }
+
+    @Bean
+    public ServicioRegistrarHistoria servicioRegistrarHistoria(RepositorioHistoria repositorioHistoria){
+        return new ServicioRegistrarHistoria(repositorioHistoria);
     }
 
 
