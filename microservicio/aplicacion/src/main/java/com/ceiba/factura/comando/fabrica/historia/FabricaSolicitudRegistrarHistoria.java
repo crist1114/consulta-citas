@@ -1,4 +1,4 @@
-package com.ceiba.factura.comando.fabrica;
+package com.ceiba.factura.comando.fabrica.historia;
 
 import com.ceiba.factura.comando.ComandoSolicitudRegistrarHistoria;
 import com.ceiba.historia.modelo.entidad.SolicitudRegistrarHistoria;

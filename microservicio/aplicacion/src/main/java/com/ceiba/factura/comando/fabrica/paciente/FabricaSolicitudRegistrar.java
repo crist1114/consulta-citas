@@ -1,4 +1,4 @@
-package com.ceiba.factura.comando.fabrica;
+package com.ceiba.factura.comando.fabrica.paciente;
 
 import com.ceiba.factura.comando.ComandoSolicitudRegistrar;
 import com.ceiba.paciente.modelo.entidad.SolicitudRegistrar;

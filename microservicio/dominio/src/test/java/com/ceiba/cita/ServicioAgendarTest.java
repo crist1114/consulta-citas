@@ -41,7 +41,7 @@ public class ServicioAgendarTest {
         var solicitudAgendar = new SolicitudAgendarTestDataBuilder()
                 .conPaciente(paciente)
                 .conTipoProcedimiento(TipoProcedimiento.LIMPIEZA.toString())
-                .conFecha(LocalDate.now().plusDays(2))
+                .conFecha(LocalDate.now())
                 .conHora(LocalTime.of(15, 00,00))
                 .conValorPagado(VALOR_CONTRIBUTIVO)
                 .build();
@@ -66,7 +66,7 @@ public class ServicioAgendarTest {
         var solicitudAgendar = new SolicitudAgendarTestDataBuilder()
                 .conPaciente(paciente)
                 .conTipoProcedimiento(TipoProcedimiento.LIMPIEZA.toString())
-                .conFecha(LocalDate.now().plusDays(2))
+                .conFecha(LocalDate.now())
                 .conHora(LocalTime.of(3, 00,00))
                 .conValorPagado(VALOR_CONTRIBUTIVO)
                 .build();
@@ -130,7 +130,7 @@ public class ServicioAgendarTest {
         var solicitudAgendar = new SolicitudAgendarTestDataBuilder()
                 .conPaciente(paciente)
                 .conTipoProcedimiento(TipoProcedimiento.LIMPIEZA.toString())
-                .conFecha(LocalDate.now().plusDays(2))
+                .conFecha(LocalDate.now().plusDays(1))
                 .conHora(LocalTime.of(15, 00,00))
                 .conValorPagado(VALOR_CONTRIBUTIVO)
                 .build();

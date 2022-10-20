@@ -44,7 +44,7 @@ public class ComandoControladorCitaTest {
 
         ComandoSolicitudAgendar comandoAgendarTestDataBuilder = new ComandoAgendarTestDataBuilder()
                 .crearPorDefecto()
-                .conFecha(LocalDate.now().plusDays(2))
+                .conFecha(LocalDate.now())
                 .conHora(LocalTime.of(15, 00,00))
                 .conIdPaciente(1093l)
                 .build();

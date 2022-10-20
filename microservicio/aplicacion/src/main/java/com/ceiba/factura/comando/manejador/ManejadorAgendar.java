@@ -3,7 +3,7 @@ package com.ceiba.factura.comando.manejador;
 import com.ceiba.ComandoRespuesta;
 import com.ceiba.cita.servicio.ServicioAgendar;
 import com.ceiba.factura.comando.ComandoSolicitudAgendar;
-import com.ceiba.factura.comando.fabrica.FabricaSolicitudAgendar;
+import com.ceiba.factura.comando.fabrica.cita.FabricaSolicitudAgendar;
 import com.ceiba.manejador.ManejadorComandoRespuesta;
 import org.springframework.stereotype.Component;
 

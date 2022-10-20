@@ -1,4 +1,4 @@
-package com.ceiba.factura.comando.fabrica;
+package com.ceiba.factura.comando.fabrica.cita;
 
 import com.ceiba.cita.modelo.entidad.SolicitudAgendar;
 import com.ceiba.factura.comando.ComandoSolicitudAgendar;

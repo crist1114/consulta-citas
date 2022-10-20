@@ -63,7 +63,7 @@ public class ServicioAgendar {
             int posicionDia = dia.getDayOfWeek().getValue();
 
             if(posicionDia != DOMINGO && posicionDia != SABADO) {
-                if(fecha.getDayOfMonth() == diaMes){
+                if(diaMes == fecha.getDayOfMonth()){
                     return true;
                 }
                 contadorDias++;

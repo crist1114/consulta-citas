@@ -2,7 +2,7 @@ package com.ceiba.factura.comando.manejador;
 
 import com.ceiba.ComandoRespuesta;
 import com.ceiba.factura.comando.ComandoSolicitudRegistrarHistoria;
-import com.ceiba.factura.comando.fabrica.FabricaSolicitudRegistrarHistoria;
+import com.ceiba.factura.comando.fabrica.historia.FabricaSolicitudRegistrarHistoria;
 import com.ceiba.historia.servicio.ServicioRegistrarHistoria;
 import com.ceiba.manejador.ManejadorComandoRespuesta;
 import org.springframework.stereotype.Component;
