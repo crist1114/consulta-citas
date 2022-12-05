@@ -1,0 +1,1 @@
+select * from cita where fecha = :fecha and estado = 'NO_ATENDIDA';

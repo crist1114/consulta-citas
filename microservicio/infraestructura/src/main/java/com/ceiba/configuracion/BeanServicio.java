@@ -3,6 +3,7 @@ package com.ceiba.configuracion;
 import com.ceiba.cita.puerto.repositorio.RepositorioCita;
 import com.ceiba.cita.servicio.ServicioAgendar;
 import com.ceiba.cita.servicio.ServicioCancelar;
+import com.ceiba.cita.servicio.ServicioConfirmar;
 import com.ceiba.historia.puerto.RepositorioHistoria;
 import com.ceiba.historia.servicio.ServicioRegistrarHistoria;
 import com.ceiba.paciente.puerto.repositorio.RepositorioPaciente;
@@ -26,6 +27,11 @@ public class BeanServicio {
     @Bean
     public ServicioCancelar servicioCancelar(RepositorioCita repositorioCita){
         return new ServicioCancelar(repositorioCita);
+    }
+
+    @Bean
+    public ServicioConfirmar servicioConfirmar(RepositorioCita repositorioCita){
+        return new ServicioConfirmar(repositorioCita);
     }
 
     @Bean

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/historia")
+@CrossOrigin("*")
 @Tag(name = "Controlador comando historia")
 public class ComandoControladorHistoria {
 

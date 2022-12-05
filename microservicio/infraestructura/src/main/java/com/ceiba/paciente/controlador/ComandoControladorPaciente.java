@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/paciente")
+@CrossOrigin("*")
 @Tag(name = "Controlador comando paciente")
 public class ComandoControladorPaciente {
 

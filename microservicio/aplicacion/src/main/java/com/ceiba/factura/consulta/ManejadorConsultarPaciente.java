@@ -4,6 +4,8 @@ import com.ceiba.paciente.modelo.dto.ResumenPacienteDTO;
 import com.ceiba.paciente.puerto.dao.DaoPaciente;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ManejadorConsultarPaciente {
 
@@ -18,5 +20,9 @@ public class ManejadorConsultarPaciente {
     public ResumenPacienteDTO ejecutar(Long id){
 
         return daoPaciente.obtenerPaciente(id);
+    }
+
+    public List<ResumenPacienteDTO> ejecutarObtener() {
+        return daoPaciente.obtenerPacientes();
     }
 }

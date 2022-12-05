@@ -77,6 +77,8 @@ public final class Cita {
         this.estado = EstadoCita.CANCELADA;
     }
 
+    public void confirmar(){this.estado = EstadoCita.ATENDIDA;}
+
     public boolean historiaValidaParaCitaMantenimiento(Object fechaUltimaHistoria){
 
         if(fechaUltimaHistoria==null)
